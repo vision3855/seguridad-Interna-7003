@@ -1,0 +1,28 @@
+.green, .red{
+    position: fixed;
+    
+    color: white;
+    bottom: 35px;
+    padding: 5px 8px;
+    font-size: 1.15rem;
+    border-radius: 3px;
+    transition: all 0.2s ease-in;
+}
+
+.green{
+    background-color: green;
+}
+
+.red{
+    background-color: red;
+}
+
+.inActive{
+    position: fixed;
+    background-color: green;
+    color: white;
+    bottom: -35px;
+    padding: 5px 8px;
+    font-size: 1.15rem;
+    border-radius: 3px;
+}

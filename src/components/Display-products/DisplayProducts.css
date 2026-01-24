@@ -1,0 +1,122 @@
+.savour-area{
+    width: 100%;
+} 
+
+.savour-wrapper{
+    border-top: 4px solid #000;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    
+
+}
+
+.all-savour{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 20px;
+}
+
+#KR, #FR, #ER, #GR {
+    position: absolute;
+    left: 100px;
+    top: -18.5px;
+    padding: 4px 6px;
+    font-size: 20px;
+    font-weight: 600px;
+    font-family: "Ubuntu";
+    color: #ffffff;
+    border-radius: 2px;
+}
+
+#KR{
+    background-color: #000000;
+}
+
+#FR{
+    background-color: #b1232f;
+}
+
+#ER{
+    background-color: #d6d3d3;
+    color: #000;
+}
+
+#GR{
+    background-color: #1927a1;
+}
+
+span{
+    padding: 4px 6px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#Uva{
+    background-color: rgb(62, 25, 94);
+    color: #ffffff;
+}
+
+#Negra{
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+}
+
+#Naranja{
+    background-color: rgb(212, 86, 13);
+    color: #ffffff;
+}
+
+#Limon{
+    background-color: rgb(21, 145, 68);
+    color: #ffffff;
+}
+
+#Manzana{
+    background-color: rgb(170, 143, 108);
+    color: #ffffff;
+}
+
+#Punch{
+    background-color: rgb(236, 56, 56);
+    color: #ffffff;
+}
+
+#Citrus{
+    background-color: rgb(255, 214, 30);
+    color: #000000;
+}
+
+#Melocoton{
+    background-color: rgb(207, 136, 4);
+    color: #ffffff;
+}
+
+#Pera{
+    background-color: rgb(182, 172, 39);
+    color: #ffffff;
+}
+
+#Guanabana{
+    background-color: rgb(202, 212, 177);
+    color: #000000;
+}
+
+#Frambuesa{
+    background-color: #d6d3d3;
+    color: #000000;
+}
+#Malta{
+    background-color: rgb(75, 53, 21);
+    color: #ffffff;
+}
+#Blueberry{
+    background-color: rgb(5, 46, 182);
+    color: #ffffff;
+}
+
+.all-savour span:hover{
+    transform: scale(1.05);
+}

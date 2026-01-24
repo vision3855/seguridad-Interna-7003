@@ -1,0 +1,23 @@
+body{
+    margin-inline: 200px;
+    font-family: "Pontano Sans", sans-serif;
+    font-size: 18px;
+}
+
+header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.main-logo{
+    width:150px
+}
+
+.main-title{
+    font-weight: 700;
+    font-size: 40px;
+    font-family: "Ubuntu";
+}
