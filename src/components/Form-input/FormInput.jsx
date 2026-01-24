@@ -1,12 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./FormInput.css";
+import { Await } from "react-router";
 
-const FormInput = ({ setTextToShow, Products, setProducts }) => {
+const FormInput = ({
+  setTextToShow,
+  Products,
+  setProducts,
+  setAlertMessage,
+}) => {
   const [driver, setDriver] = useState("");
   const [displayDriverArray, setDisplayDriverArray] = useState([]);
-  const [displayDriverHTML, setDisplayDriverHTML] = useState("");
-
   const ISMRef = useRef(null);
   const terceroRef = useRef(null);
   const driverRef = useRef(null);
@@ -20,43 +24,113 @@ const FormInput = ({ setTextToShow, Products, setProducts }) => {
   const displayDriver = useRef(null);
 
   async function driverSearch(event) {
-    const textTyped = event.target.value;
-    setDriver(textTyped);
+    const value = event.target.value;
+    setDriver(value);
+
+    if (!value.trim()) {
+      setDisplayDriverArray([]);
+      return;
+    }
 
     try {
       const response = await axios(
-        `https://segintco7003.onrender.com/patana?driver=${textTyped}`,
+        `https://segintco7003.onrender.com/patana?driver=${value}`,
       );
 
-      const data = response.data.patanas;
+      const data = response.data?.patanas ?? [];
 
+      const filtered = data.filter((item) =>
+        item.driver?.toLowerCase().includes(value.toLowerCase().trim()),
+      );
+
+      setDisplayDriverArray(filtered);
       displayDriver.current.classList.add("show");
-
-      // 1️⃣ Build results FIRST
-      const htmlResults = data
-        .filter((item) =>
-          item.driver.toLowerCase().includes(textTyped.toLowerCase().trim()),
-        )
-        .map(
-          (item) => `
-        <div className="single-driver" data-placa="${item.placa} onClick=${selectDriver}">
-          <span>${item.driver}</span>
-          <span>${item.placa}</span>
-        </div>
-      `,
-        );
-
-      // 2️⃣ Then update state ONCE
-      setDisplayDriverArray(htmlResults);
-      setDisplayDriverHTML(htmlResults.join(" "));
     } catch (error) {
-      console.log(error);
+      console.log("API error:", error);
     }
   }
 
-  function selectDriver() {
-    console.log('tested');
-    
+  function selectDriver(item) {
+    if (item.patanaType === "TERCERO") {
+      driverRef.current.value = item.driver;
+      placaRef.current.value = item.placa;
+    }
+    if (item.patanaType === "ISM") {
+      driverRef.current.value = item.driver;
+      placaRef.current.value = item.placa;
+      fichaRef.current.value = item.ficha;
+      placaUnidadRef.current.value = item.placaUnidad;
+    }
+    displayDriver.current.classList.remove("show");
+  }
+
+  useEffect(() => {
+    document.addEventListener("click", function (event) {
+      if (
+        !displayDriver.current.contains(event.target) &&
+        displayDriver.current.classList.contains("show")
+      ) {
+        displayDriver.current.classList.remove("show");
+      }
+    });
+  }, []);
+
+  async function saveNewDriver() {
+    if (!driverRef.current.value || !placaRef.current.value) {
+      setAlertMessage((prev) => ({
+        ...prev,
+        type: "red",
+        message: "Please provide driver and placa",
+      }));
+      setTimeout(() => {
+        setAlertMessage((prev) => ({
+          ...prev,
+          type: "inActive",
+          message: "Nothing to show right now",
+        }));
+      }, 3000);
+      return;
+    }
+    const data = terceroRef.current.checked
+      ? {
+          patanaType: "TERCERO",
+          driver: driverRef.current.value,
+          placa: placaRef.current.value,
+        }
+      : {
+          patanaType: "ISM",
+          driver: driverRef.current.value,
+          placa: placaRef.current.value,
+          ficha: fichaRef.current.value,
+          placaUnidad: placaUnidadRef.current.value,
+        };
+
+    const url = `https://segintco7003.onrender.com/patana?driver=${driverRef.current.value}`;
+    const response = await axios(url);
+
+    const dataFetched = response.data.patanas;
+
+    if (dataFetched.length) {
+      return;
+    } else {
+      const res = await axios.post(
+        "https://segintco7003.onrender.com/patana",
+        data,
+      );
+      console.log(res.data);
+      setAlertMessage((prev) => ({
+        ...prev,
+        type: "green",
+        message: `chofer ${res.data.patana.driver} Created succesfully`,
+      }));
+      setTimeout(() => {
+        setAlertMessage((prev) => ({
+          ...prev,
+          type: "inActive",
+          message: "Nothing to show right now",
+        }));
+      }, 3000);
+    }
   }
 
   function populateText() {
@@ -127,6 +201,25 @@ Paletas : 21 unidades`);
     setProducts([]);
   }
 
+  function getOut() {
+    const date = new Date();
+
+    // European format (DD/MM/YYYY)
+    const todayDate = date.toLocaleDateString("en-GB"); // "25/12/2024"
+
+    // 24-hour format
+    const hourNow = date.toLocaleTimeString("en-GB"); // "14:30:45"
+
+    setTextToShow(`Sale del centro de Gonaïves una patana que había ingresado previamente con productos.
+
+Chófer: ${driverRef.current.value} 
+Placa: TM ${placaUnidadRef.current.value}
+Hora salida: ${hourNow}
+Fecha: ${todayDate}
+
+Nota: La patana sale vacía, sin producto a bordo.`)
+  }
+
   return (
     <section className="record">
       <form className="form-record">
@@ -165,11 +258,19 @@ Paletas : 21 unidades`);
               value={driver}
               onChange={driverSearch}
             />
-            <div
-              className="display-driver"
-              ref={displayDriver}
-              dangerouslySetInnerHTML={{ __html: displayDriverHTML }}
-            />
+            <div className="display-driver" ref={displayDriver}>
+              {displayDriverArray.length > 0 &&
+                displayDriverArray.map((item) => (
+                  <div
+                    key={item.placa}
+                    className="single-driver"
+                    onClick={() => selectDriver(item)}
+                  >
+                    <span>{item.driver}</span>
+                    <span>{item.placa}</span>
+                  </div>
+                ))}
+            </div>
           </div>
           <div>
             <label htmlFor="placa-record">Placa</label>
@@ -221,6 +322,7 @@ Paletas : 21 unidades`);
             className="record-camion-button"
             ref={entradaRef}
             onClick={() => {
+              saveNewDriver();
               populateText();
             }}
           >
@@ -230,6 +332,7 @@ Paletas : 21 unidades`);
             type="button"
             className="record-camion-button rec-salida"
             ref={salidaRef}
+            onClick={getOut}
           >
             Salida
           </button>
