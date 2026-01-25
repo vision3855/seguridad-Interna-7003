@@ -1,122 +1,169 @@
-.savour-area{
-    width: 100%;
-} 
-
-.savour-wrapper{
-    border-top: 4px solid #000;
-    position: relative;
-    width: 100%;
-    margin-top: 20px;
-    
-
+.savour-area {
+  width: 95vw;
+  margin-top: 30px;
 }
 
-.all-savour{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding-top: 20px;
+.savour-wrapper {
+  border-top: 4px solid #000;
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
 }
 
-#KR, #FR, #ER, #GR {
-    position: absolute;
-    left: 100px;
-    top: -18.5px;
-    padding: 4px 6px;
-    font-size: 20px;
-    font-weight: 600px;
-    font-family: "Ubuntu";
-    color: #ffffff;
-    border-radius: 2px;
+.productos-title {
+  position: relative;
 }
 
-#KR{
-    background-color: #000000;
+.bar {
+  width: 100%;
+  height: 2px;
+  background-color: rgb(27, 77, 25);
 }
 
-#FR{
-    background-color: #b1232f;
+.productos-title span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5px;
+  color: rgb(27, 77, 25);
+  background-color: rgb(255, 255, 255);
+  font-weight: 700;
 }
 
-#ER{
-    background-color: #d6d3d3;
-    color: #000;
+.all-savour {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-top: 30px;
 }
 
-#GR{
-    background-color: #1927a1;
+.all-savour span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-span{
-    padding: 4px 6px;
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 16px;
+.frutop {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  row-gap: 15px;
 }
 
-#Uva{
-    background-color: rgb(62, 25, 94);
-    color: #ffffff;
+.glow {
+  box-shadow: 0px 0px 5px 5px rgb(255, 255, 0);
 }
 
-#Negra{
-    background-color: rgb(0, 0, 0);
-    color: #ffffff;
+#KR,
+#FR,
+#ER,
+#GR {
+  position: absolute;
+  left: 100px;
+  top: -18.5px;
+  padding: 4px 6px;
+  font-size: 18px;
+  font-weight: 600px;
+  font-family: "Ubuntu";
+  color: #ffffff;
+  border-radius: 2px;
 }
 
-#Naranja{
-    background-color: rgb(212, 86, 13);
-    color: #ffffff;
+#KR {
+  background-color: #000000;
+  color: #ffb3b3;
 }
 
-#Limon{
-    background-color: rgb(21, 145, 68);
-    color: #ffffff;
+#FR {
+  background-color: #b1232f;
 }
 
-#Manzana{
-    background-color: rgb(170, 143, 108);
-    color: #ffffff;
+#ER {
+  background-color: #d6d3d3;
+  color: #000;
 }
 
-#Punch{
-    background-color: rgb(236, 56, 56);
-    color: #ffffff;
+#GR {
+  background-color: #1927a1;
 }
 
-#Citrus{
-    background-color: rgb(255, 214, 30);
-    color: #000000;
+span {
+  padding: 4px 6px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-#Melocoton{
-    background-color: rgb(207, 136, 4);
-    color: #ffffff;
+#Uva {
+  background-color: rgb(62, 25, 94);
+  color: #ffffff;
 }
 
-#Pera{
-    background-color: rgb(182, 172, 39);
-    color: #ffffff;
+#Negra {
+  background-color: rgb(0, 0, 0);
+  color: #ffffff;
 }
 
-#Guanabana{
-    background-color: rgb(202, 212, 177);
-    color: #000000;
+#Naranja {
+  background-color: rgb(212, 86, 13);
+  color: #ffffff;
 }
 
-#Frambuesa{
-    background-color: #d6d3d3;
-    color: #000000;
-}
-#Malta{
-    background-color: rgb(75, 53, 21);
-    color: #ffffff;
-}
-#Blueberry{
-    background-color: rgb(5, 46, 182);
-    color: #ffffff;
+#Limon {
+  background-color: rgb(21, 145, 68);
+  color: #ffffff;
 }
 
-.all-savour span:hover{
-    transform: scale(1.05);
+#Manzana {
+  background-color: rgb(170, 143, 108);
+  color: #ffffff;
+}
+
+#Punch {
+  background-color: rgb(236, 56, 56);
+  color: #ffffff;
+}
+
+#Citrus {
+  background-color: rgb(255, 214, 30);
+  color: #000000;
+}
+
+#Melocoton {
+  background-color: rgb(207, 136, 4);
+  color: #ffffff;
+}
+
+#Pera {
+  background-color: rgb(182, 172, 39);
+  color: #ffffff;
+}
+
+#Guanabana {
+  background-color: rgb(202, 212, 177);
+  color: #000000;
+}
+
+#Frambuesa {
+  background-color: #d6d3d3;
+  color: #000000;
+}
+#Malta {
+  background-color: rgb(75, 53, 21);
+  color: #ffffff;
+}
+#Blueberry {
+  background-color: rgb(5, 46, 182);
+  color: #ffffff;
+}
+
+.all-savour span:hover {
+  transform: scale(1.05);
+}
+
+@media (min-width: 1024px) {
+  .savour-area {
+    width: 1000px;
+    margin-inline: 30px;
+  }
 }

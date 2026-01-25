@@ -1,23 +1,56 @@
-body{
-    margin-inline: 200px;
-    font-family: "Pontano Sans", sans-serif;
-    font-size: 18px;
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  margin-bottom: 20px;
 }
 
-header{
+.main-logo {
+  width: 80px;
+}
+
+.main-title {
+  font-weight: 700;
+  font-size: 20px;
+  font-family: "Ubuntu";
+}
+
+@media (min-width: 768px) {
+  header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 2vw;
+    margin-bottom: 20px;
+  }
+
+  .main-title {
+    font-size: 30px;
+  }
+
+  .main-logo {
+    width: 100px;
+  }
 }
 
+@media (min-width: 1024px) {
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw;
+    margin-bottom: 20px;
+  }
 
-.main-logo{
-    width:150px
-}
-
-.main-title{
-    font-weight: 700;
+  .main-title {
     font-size: 40px;
-    font-family: "Ubuntu";
+  }
+
+  .main-logo {
+    width: 150px;
+  }
 }

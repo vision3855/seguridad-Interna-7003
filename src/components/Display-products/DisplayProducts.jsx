@@ -9,6 +9,8 @@ import {
 } from "../../productData";
 
 const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
+
+
   function addSingleProduct(e) {
     const isExisted = Products.find(
       (item) => item == e.target.dataset.systemName,
@@ -21,6 +23,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
         type: "red",
         message: "products removed successfully",
       }));
+      e.target.classList.remove('glow')
     } else {
       setProducts((prev) => [...prev, e.target.dataset.systemName]);
       setAlertMessage((prev) => ({
@@ -28,6 +31,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
         type: "green",
         message: "products added successfully",
       }));
+      e.target.classList.add('glow')
     }
 
     setTimeout(() => {
@@ -41,6 +45,10 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
 
   return (
     <section className="savour-area">
+      <div className="productos-title">
+        <div className="bar"></div>
+        <span>PRODUCTOS</span>
+      </div>
       <div className="savour-wrapper">
         <p id="KR">Kola Real</p>
         <div className="all-savour">
@@ -51,6 +59,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
                 id={item.name}
                 onClick={(e) => addSingleProduct(e)}
                 data-system-name={item.description}
+                className=""
               >
                 {item.name}
               </span>
@@ -61,7 +70,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
 
       <div className="savour-wrapper">
         <p id="FR">Frutop - 300 ml</p>
-        <div className="all-savour">
+        <div className="all-savour frutop">
           {frutop300.map((item) => {
             return (
               <span
@@ -69,6 +78,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
                 id={item.name}
                 onClick={(e) => addSingleProduct(e)}
                 data-system-name={item.description}
+                className=""
               >
                 {item.name}
               </span>
@@ -79,7 +89,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
 
       <div className="savour-wrapper">
         <p id="FR">Frutop - 450 ml</p>
-        <div className="all-savour">
+        <div className="all-savour frutop">
           {frutop450.map((item) => {
             return (
               <span
@@ -87,6 +97,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
                 id={item.name}
                 onClick={(e) => addSingleProduct(e)}
                 data-system-name={item.description}
+                className=""
               >
                 {item.name}
               </span>
@@ -105,6 +116,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
                 id={item.name}
                 onClick={(e) => addSingleProduct(e)}
                 data-system-name={item.description}
+                className=""
               >
                 {item.name}
               </span>
@@ -123,6 +135,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
                 id={item.name}
                 onClick={(e) => addSingleProduct(e)}
                 data-system-name={item.description}
+                className=""
               >
                 {item.name}
               </span>

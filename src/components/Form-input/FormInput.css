@@ -1,156 +1,181 @@
-.camion-type{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
+.camion-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.camion-type-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.camion-type-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
 }
 
-.driver-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.driver-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
 }
 
-.Entry-type-wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+.Entry-type-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.form-record{
-    position: relative;
-    border: 1px solid black;
-    border-radius: 4px;
-    width: 700px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.form-record {
+  position: relative;
+  border: 1px solid rgb(27, 77, 25);
+  border-radius: 3px;
+  width: 95vw;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.top-title-text{
-    position: absolute;
-    top: -20px;
-    right: 225px;
-    background-color: #ffffff;
-    padding: 5px;
-    border-radius: 2px;
-    font-family: "Ubuntu";
-    font-size: 20px;
-    
+.top-title-text {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 4px;
+  border-radius: 2px;
+  font-family: "Ubuntu";
+  font-size: 16px;
+  white-space: nowrap;
+  color: rgb(27, 77, 25);
 }
 
-label{
-    margin-right: 7px;
+label {
+  margin-right: 7px;
 }
 
-input{
-    margin-right: 35px;
-    border: 1px black solid;
-    border: none;
+input {
+  border: 1px black solid;
+  border: none;
 
-    border-radius: 2px;
-    background-color: #ececec;
-    padding: 3px;
+  border-radius: 2px;
+  background-color: #ececec;
+  padding: 3px;
 }
 
-input[type='text']:focus{
-    border: 2px rgb(148, 148, 148) solid;
-    outline: none;
+input[type="text"]:focus {
+  border: 2px rgb(148, 148, 148) solid;
+  outline: none;
 }
 
-.conduce-differente{
-    margin-top: 10px;
+.conduce-differente {
+  margin-top: 10px;
 }
 
-.nombre-completo{
-    position: relative;
+/* .nombre-completo {
+  position: relative;
+}
+ */
+.display-driver {
+  position: absolute;
+  width: 300px;
+  left: 120px;
+  padding: 0 8px;
+  max-height: 150px;
+  overflow-y: scroll;
+  display: none;
 }
 
-.display-driver{
-    position: absolute;
-    width: 300px;
-    left: 120px;
-    padding: 0 8px;
-    max-height: 150px;
-    overflow-y: scroll;
-    display: none;
+.ficha,
+.placa-unidad {
+  margin-top: 10px;
 }
 
-.ficha, .placa-unidad{
-    margin-top: 10px;
+.show {
+  display: block;
 }
 
-.show{
-    display: block;
+.single-driver {
+  display: grid;
+  grid-template-columns: 0.7fr 0.3fr;
 }
 
-.single-driver{
-    display: grid;
-    grid-template-columns: 0.7fr 0.3fr;
+.display-driver span {
+  border-radius: 2px;
+  background-color: rgb(241, 241, 240);
+  /*background-color: #1927a1;*/
 }
 
-.display-driver span{
-    border-radius: 2px;
-    background-color: rgb(241, 241, 240);
-    /*background-color: #1927a1;*/
+.display-driver span:hover {
+  background-color: rgb(75, 72, 72);
+  color: #ececec;
+  /*background-color: #1927a1;*/
 }
 
-.display-driver span:hover{
-    background-color: rgb(75, 72, 72);
-    color: #ececec;
-    /*background-color: #1927a1;*/
-}
-
-.display-driver span:hover + span{ 
-    background-color: rgb(75, 72, 72);
-    color: #ececec;
-    /*background-color: #1927a1;*/
+.display-driver span:hover + span {
+  background-color: rgb(75, 72, 72);
+  color: #ececec;
+  /*background-color: #1927a1;*/
 }
 
 .display-driver .single-driver:nth-child(even) {
-    background-color: rgb(207, 207, 207) !important;
+  background-color: rgb(207, 207, 207) !important;
 }
 
-#separador{
-    width: 70px;
+#separador {
+  width: 70px;
 }
 
-.separador{
-    margin-top: 20px;
+.separador {
+  margin-top: 20px;
 }
 
-.bottom-button{
+.bottom-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.record-camion-button {
+  margin-top: 17px;
+  padding: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: rgb(21, 136, 21);
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  transition: all 0.1s ease;
+}
+
+.record-camion-button:hover {
+  transform: scale(1.05);
+}
+
+.rec-salida {
+  background-color: rgb(121, 19, 19);
+}
+
+@media (min-width: 768px) {
+  .driver-wrapper {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: center;
-    gap: 20px;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+  }
 }
 
-.record-camion-button{
-    margin-top: 17px;
-    padding: 6px;
-    font-size: 18px;
-    cursor: pointer;
-    background-color: rgb(21, 136, 21);
-    border: none;
-    border-radius: 3px;
-    color: #ffffff;
-    transition: all 0.1s ease;
-}
-
-.record-camion-button:hover{
-    transform: scale(1.05);
-}
-
-.rec-salida{
-    background-color: rgb(170, 29, 29);
+@media (min-width: 1024px) {
+  .form-record {
+    border-radius: 4px;
+    width: 800px;
+    padding: 15px;
+  }
 }
