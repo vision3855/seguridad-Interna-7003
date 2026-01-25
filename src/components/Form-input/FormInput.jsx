@@ -249,7 +249,7 @@ Nota: La patana sale vacía, sin producto a bordo.`)
 
         <div className="driver-wrapper">
           <div className="nombre-wrapper">
-            <label htmlFor="nombre-record">Nombre completo</label>
+            <label htmlFor="nombre-record">Nombre</label>
             <input
               type="text"
               name="nombre-record"
