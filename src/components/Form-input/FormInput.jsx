@@ -139,10 +139,8 @@ const FormInput = ({
     // European format (DD/MM/YYYY)
     const todayDate = date.toLocaleDateString("en-GB"); // "25/12/2024"
 
-    const now = new Date();
-
     // 24-hour format
-    const hourNow = now.toLocaleTimeString("en-GB"); // "14:30:45"
+    const hourNow = date.toLocaleTimeString("en-GB"); // "14:30:45"
 
     let productString = "";
     if (!Products.length) {
@@ -202,6 +200,25 @@ Paletas : 21 unidades`);
   }
 
   function getOut() {
+    if (!driverRef.current.value || placaUnidadRef.current.value) {
+      setAlertMessage((prev) => ({
+        ...prev,
+        type: "red",
+        message: `Please provide chofer and placa`,
+      }));
+      setTimeout(() => {
+        setAlertMessage((prev) => ({
+          ...prev,
+          type: "inActive",
+          message: "Nothing to show right now",
+        }));
+      }, 3000);
+      return;
+    }
+    const choferData = {
+      driver: driverRef.current.value,
+      placa: placaRef.current.value,
+    };
     const date = new Date();
 
     // European format (DD/MM/YYYY)
@@ -212,12 +229,12 @@ Paletas : 21 unidades`);
 
     setTextToShow(`Sale del centro de Gonaïves una patana que había ingresado previamente con productos.
 
-Chófer: ${driverRef.current.value} 
-Placa: TM ${placaUnidadRef.current.value}
+Chófer: ${choferData.driver} 
+Placa: TM ${choferData.placa}
 Hora salida: ${hourNow}
 Fecha: ${todayDate}
 
-Nota: La patana sale vacía, sin producto a bordo.`)
+Nota: La patana sale vacía, sin producto a bordo.`);
   }
 
   return (
