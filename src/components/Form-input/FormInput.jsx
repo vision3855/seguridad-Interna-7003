@@ -9,7 +9,6 @@ const FormInput = ({
   setProducts,
   setAlertMessage,
 }) => {
-  const [driver, setDriver] = useState("");
   const [displayDriverArray, setDisplayDriverArray] = useState([]);
   const ISMRef = useRef(null);
   const terceroRef = useRef(null);
@@ -25,7 +24,6 @@ const FormInput = ({
 
   async function driverSearch(event) {
     const value = event.target.value;
-    setDriver(value);
 
     if (!value.trim()) {
       setDisplayDriverArray([]);
@@ -272,7 +270,7 @@ Nota: La patana sale vacía, sin producto a bordo.`);
               name="nombre-record"
               id="nombre-record"
               ref={driverRef}
-              value={driver}
+
               onChange={driverSearch}
             />
             <div className="display-driver" ref={displayDriver}>
