@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./FormInput.css";
-import { Await } from "react-router";
 
 const FormInput = ({
   setTextToShow,
@@ -108,26 +107,47 @@ const FormInput = ({
 
     const dataFetched = response.data.patanas;
 
+    async function postData(data, where) {
+      const res = await axios.post(
+        `https://segintco7003.onrender.com/${where}`,
+        data,
+      );
+      return res;
+    }
+
     if (dataFetched.length) {
       return;
     } else {
-      const res = await axios.post(
-        "https://segintco7003.onrender.com/patana",
-        data,
-      );
-      console.log(res.data);
-      setAlertMessage((prev) => ({
-        ...prev,
-        type: "green",
-        message: `chofer ${res.data.patana.driver} Created succesfully`,
-      }));
-      setTimeout(() => {
+      try {
+        const res = await postData(data, "patana");
+        console.log(res.data);
+        
         setAlertMessage((prev) => ({
           ...prev,
-          type: "inActive",
-          message: "Nothing to show right now",
+          type: "green",
+          message: `chofer ${res.data.patana.driver} Created succesfully`,
         }));
-      }, 3000);
+        setTimeout(() => {
+          setAlertMessage((prev) => ({
+            ...prev,
+            type: "inActive",
+            message: "Nothing to show right now",
+          }));
+        }, 3000);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    const dataInforme = {
+      ...data,
+      productos: Products.join(", "),
+    };
+
+    try {
+      await postData(dataInforme, "ingreso");
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -270,7 +290,6 @@ Nota: La patana sale vacía, sin producto a bordo.`);
               name="nombre-record"
               id="nombre-record"
               ref={driverRef}
-
               onChange={driverSearch}
             />
             <div className="display-driver" ref={displayDriver}>

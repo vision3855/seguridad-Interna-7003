@@ -1,0 +1,51 @@
+.informe-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+}
+
+.icon-wrapper {
+  margin-block: 30px;
+  position: relative;
+  width: 200px;
+}
+
+.date-icon {
+  width: 200px;
+  padding: 12px 16px 12px 45px;
+  font-size: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  color: #333;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.icon-wrapper::before {
+  content: "📅";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.ingreso-grid{
+  display: grid;
+  grid-template-columns: 120px 80px 190px 500px 50px 50px;
+}
+
+.informe-body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ingreso-grid:nth-child(even){
+  background-color: rgb(235, 235, 235);
+}
