@@ -49,3 +49,19 @@
 .ingreso-grid:nth-child(even){
   background-color: rgb(235, 235, 235);
 }
+
+
+
+@media (max-width: 768px) {
+  .ingreso-grid span:first-child {
+    display: none;
+  }
+
+  /* Hide 4th and everything after */
+  .ingreso-grid span:nth-child(n + 4) {
+    display: none;
+  }
+  .ingreso-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

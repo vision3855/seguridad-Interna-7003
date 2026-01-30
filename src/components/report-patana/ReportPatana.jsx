@@ -10,13 +10,34 @@ const ReportPatana = () => {
   const [ingresoPatana, setIngresoPatana] = useState(null);
   const [loading, setLoading] = React.useState(true);
 
+  function getIngreso() {
+    setLoading(true);
+    const dateChosen = dateRef.current.value;
+    const dateAdapted = `${dateChosen[8]}${dateChosen[9]}/${dateChosen[5]}${dateChosen[6]}/${dateChosen[0]}${dateChosen[1]}${dateChosen[2]}${dateChosen[3]}`;
+
+    try {
+      axios
+        .post(`https://segintco7003.onrender.com/ingreso/date`, {
+          dia: dateAdapted,
+        })
+        .then((res) => {
+          setIngresoPatana(res.data.result);
+        })
+        .finally(() => setLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     dateRef.current.value = formattedDate;
 
     axios
-      .get(`https://segintco7003.onrender.com/ingreso`)
+      .post(`https://segintco7003.onrender.com/ingreso/date`, {
+        dia: todayFormatted,
+      })
       .then((res) => {
-        setIngresoPatana(res.data.ingresos);
+        setIngresoPatana(res.data.result);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -28,11 +49,16 @@ const ReportPatana = () => {
         CO7003
       </p>
       <div className="icon-wrapper">
-        <input type="date" className="date-icon" ref={dateRef} />
+        <input
+          type="date"
+          className="date-icon"
+          ref={dateRef}
+          onChange={getIngreso}
+        />
       </div>
 
       <div className="informe-body">
-        <div  className="ingreso-grid">
+        <div className="ingreso-grid">
           <span>Fecha</span>
           <span>Placa</span>
           <span>Chofer</span>
@@ -42,16 +68,18 @@ const ReportPatana = () => {
         </div>
         {loading === true
           ? "loading..."
-          : ingresoPatana.map((ingreso) => (
-              <div key={ingreso.placa} className="ingreso-grid">
-                <span>{ingreso.dia}</span>
-                <span>{ingreso.placa}</span>
-                <span>{ingreso.driver}</span>
-                <span>{ingreso.productos}</span>
-                <span>{ingreso.separadores}</span>
-                <span>{ingreso.paletas}</span>
-              </div>
-            ))}
+          : ingresoPatana.length > 0
+            ? ingresoPatana.map((ingreso) => (
+                <div key={ingreso._id} className="ingreso-grid">
+                  <span>{ingreso.dia}</span>
+                  <span>{ingreso.placa}</span>
+                  <span>{ingreso.driver}</span>
+                  <span>{ingreso.productos}</span>
+                  <span>{ingreso.separadores}</span>
+                  <span>{ingreso.paletas}</span>
+                </div>
+              ))
+            : `No hay ingreso por esta fecha`}
       </div>
     </div>
   );

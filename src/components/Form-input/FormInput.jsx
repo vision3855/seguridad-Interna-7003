@@ -115,13 +115,9 @@ const FormInput = ({
       return res;
     }
 
-    if (dataFetched.length) {
-      return;
-    } else {
+    if (!dataFetched.length) {
       try {
         const res = await postData(data, "patana");
-        console.log(res.data);
-        
         setAlertMessage((prev) => ({
           ...prev,
           type: "green",
@@ -296,7 +292,7 @@ Nota: La patana sale vacía, sin producto a bordo.`);
               {displayDriverArray.length > 0 &&
                 displayDriverArray.map((item) => (
                   <div
-                    key={item.placa}
+                    key={item._id}
                     className="single-driver"
                     onClick={() => selectDriver(item)}
                   >
