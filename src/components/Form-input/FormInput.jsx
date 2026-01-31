@@ -62,14 +62,17 @@ const FormInput = ({
   }
 
   useEffect(() => {
-    document.addEventListener("click", function (event) {
+    function removeClass() {
       if (
         !displayDriver.current.contains(event.target) &&
         displayDriver.current.classList.contains("show")
       ) {
         displayDriver.current.classList.remove("show");
       }
-    });
+    }
+    document.addEventListener("click", removeClass);
+    return document.removeEventListener("click", removeClass);
+    
   }, []);
 
   async function saveNewDriver() {
