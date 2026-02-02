@@ -64,4 +64,11 @@
   .ingreso-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .ingreso-title{
+    font-size: 18px;
+    margin-inline: 10px;
+    text-align: center;
+  }
 }
+

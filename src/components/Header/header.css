@@ -5,6 +5,7 @@ header {
   align-items: center;
   padding: 0 10px;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .main-logo {
@@ -17,33 +18,46 @@ header {
   font-family: "Ubuntu";
 }
 
-.menu-wrapper{
-  display:flex;
+.menu-wrapper {
+  display: flex;
   gap: 100px;
   font-size: 23px;
   font-weight: bolder;
 }
 
-.menu-wrapper li{
+.menu-wrapper li {
   list-style-type: none;
   cursor: pointer;
   transition: all 0.2s ease-out;
 }
 
-.menu-wrapper li:hover{
+.menu-wrapper li:hover {
   transform: scale(1.05);
 }
 
-.border-bottom{
+.border-bottom {
   border-bottom: 3px solid rgb(7, 92, 7);
 }
-
 
 .no-decoration {
   text-decoration: none;
   color: inherit;
 }
 
+.toggle-menu{
+  display: none;
+  cursor: pointer;
+}
+
+.bar{
+  display: block;
+  height: 4px;
+  width: 35px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: rgb(15, 102, 30);
+}
 
 @media (min-width: 768px) {
   header {
@@ -81,4 +95,74 @@ header {
   .main-logo {
     width: 150px;
   }
+}
+
+@media (min-width: 768px) {
+  .menu-wrapper {
+    display: flex;
+    gap: 80px;
+    font-size: 23px;
+    font-weight: bolder;
+  }
+}
+
+@media (max-width: 768px) {
+  .toggle-menu{
+    display: block;
+  }
+
+  /* .menu-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 23px;
+    font-weight: bolder;
+    padding: 10px 10px 10px 30px;
+    position: absolute;
+    right: 0;
+    top: 70px;
+    background-color: rgb(255, 255, 255);
+    width: 100vw;
+    height: 500px;
+    z-index: 5;
+  } */
+
+  .menu-wrapper{
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    gap: 0;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    transition: 0.3s;
+    z-index:5;
+    padding: 10px;
+  }
+
+  .menu-wrapper.active{
+    left: 0;
+  }
+
+  .main-title {
+    display: none;
+  }
+
+  .border-bottom {
+    border: none;
+  }
+
+  .toggle-menu.active .bar:nth-child(2){
+    opacity:0;
+  }
+
+  .toggle-menu.active .bar:nth-child(1){
+    transform: translateY(9px) rotate(45deg);
+
+  }
+
+  .toggle-menu.active .bar:nth-child(3){
+    transform: translateY(-9px) rotate(-45deg);
+  }
+
 }

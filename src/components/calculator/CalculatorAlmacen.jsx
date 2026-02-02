@@ -201,11 +201,13 @@ const CalculatorAlmacen = () => {
             <option value="GR">Generade 500 ml</option>
             <option value="AG">Agua 500 ml</option>
           </select>
-          <button id="calcular" onClick={calculation}>
+          
+          
+        </div>
+        <button id="calcular" onClick={calculation}>
             Calcular
           </button>
-          <p className="calculation-result">{textResult}</p>
-        </div>
+        <p className="calculation-result">{textResult}</p>
       </div>
     </div>
   );

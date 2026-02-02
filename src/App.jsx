@@ -13,7 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/informe" element={<ReportPatana />} />
         <Route path="/tools" element={<Tools />} />
-        <Route path="/calculator" element={<CalculatorAlmacen />} />
+        <Route path="/tools/calculator" element={<CalculatorAlmacen />} />
       </Routes>
     </>
   );

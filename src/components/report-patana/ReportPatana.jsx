@@ -44,7 +44,7 @@ const ReportPatana = () => {
 
   return (
     <div className="informe-wrapper">
-      <p>
+      <p className="ingreso-title">
         {todayFormatted} - Informe de Ingreso de patana de provincia en el
         CO7003
       </p>
