@@ -2,26 +2,12 @@ import "./header.css";
 import ismLogo from "../../../../images/logo-ism-media.png";
 import { Link } from "react-router";
 import { useRef } from "react";
+import { menu } from "../../../../data";
 
 const Header = () => {
 
   const hamburgerRef = useRef(null);
   const menuWrapperRef = useRef(null);
-
-  const menu = [
-    {
-      name: "Home",
-      link: "/",
-    },
-    {
-      name: "Informe",
-      link: "/informe",
-    },
-    {
-      name: "Tools",
-      link: "/tools",
-    },
-  ];
 
   function toggleMenu() {
     hamburgerRef.current.classList.toggle('active');

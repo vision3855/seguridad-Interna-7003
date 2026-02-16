@@ -1,18 +1,20 @@
 .element-wrapper {
   display: flex;
-  width: 90vw;
-  margin-inline: auto;
+  width: 85vw;
+  margin: 15px auto;
   text-decoration: none;
   color: inherit;
-  gap:30px
+  gap: 30px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .img-tools-wrapper {
   display: flex;
   position: relative;
-  width: 90vw;
+  width: 85vw;
   border: 1px solid rgb(6, 14, 6);
-  height: calc(90vw / 1.6);
+  height: calc(85vw / 1.6);
   border-radius: 2px;
   overflow: hidden;
   box-shadow:
@@ -54,20 +56,43 @@
   animation: neon-flicker 1.5s infinite alternate;
 }
 
+@media (min-width: 430px) {
+  .element-wrapper {
+    width: 75vw;
+  }
+  .img-tools-wrapper {
+    width: 100%;
+    border: 1px solid rgb(6, 14, 6);
+    height: calc(60vw / 1.6);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow:
+      inset 3px 3px 5px rgba(0, 0, 0, 0.05),
+      inset -3px -3px 5px rgba(255, 255, 255, 0.8);
+  }
+  .txt-cal {
+    font-size: calc(75vw / 13);
+  }
+}
+
 @media (min-width: 768px) {
+  .element-wrapper {
+    max-width: 800px;
+  }
+
   .txt-tools-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0.35;
-    font-size: calc(90vw*0.35 / 11);
+    font-size: 1.8rem;
     text-align: center;
   }
-  .img-tools-wrapper{
+  .img-tools-wrapper {
     flex: 0.65;
-    max-height: 400px;
+    max-height: 250px;
   }
-  .txt-cal{
+  .txt-cal {
     visibility: hidden;
   }
 }

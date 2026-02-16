@@ -1,22 +1,21 @@
 import React from "react";
-import { Link } from "react-router";
-import "./Tools.css";
-import calcAlmImg from "../../assets/images/calc-img.jpeg";
 
-const Tools = () => {
+import "./Tools.css";
+import SingleWrapper from "../../components/Single-wrapper/SingleWrapper";
+//import calcAlmImg from testo;
+
+const Tools = ({ obj }) => {
   return (
-    <div>
-      <Link className="element-wrapper" to="/tools/calculator">
-        <div className="img-tools-wrapper">
-          <span className="txt-cal">Calculator para Almacen</span>
-          <img
-            src={calcAlmImg}
-            alt="image para representar calculator almacen"
-          />
-        </div>
-        <div className="txt-tools-wrapper">Calculator para Almacen</div>
-      </Link>
-    </div>
+    <>
+      {obj.map((each) => (
+        <SingleWrapper
+          image={each.image}
+          name={each.name}
+          to={each.to}
+          key={each.name}
+        />
+      ))}
+    </>
   );
 };
 

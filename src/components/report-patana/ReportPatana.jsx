@@ -72,7 +72,7 @@ const ReportPatana = () => {
             ? ingresoPatana.map((ingreso) => (
                 <div key={ingreso._id} className="ingreso-grid">
                   <span>{ingreso.dia}</span>
-                  <span>{ingreso.placa}</span>
+                  <span>{`TM ${ingreso.placa}`}</span>
                   <span>{ingreso.driver}</span>
                   <span>{ingreso.productos}</span>
                   <span>{ingreso.separadores}</span>
