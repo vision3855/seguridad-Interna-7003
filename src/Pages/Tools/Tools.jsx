@@ -6,7 +6,7 @@ import SingleWrapper from "../../components/Single-wrapper/SingleWrapper";
 
 const Tools = ({ obj }) => {
   return (
-    <>
+    <div className="tools-wrapper">
       {obj.map((each) => (
         <SingleWrapper
           image={each.image}
@@ -15,7 +15,7 @@ const Tools = ({ obj }) => {
           key={each.name}
         />
       ))}
-    </>
+    </div>
   );
 };
 

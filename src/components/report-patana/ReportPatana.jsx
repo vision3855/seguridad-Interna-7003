@@ -9,6 +9,8 @@ const ReportPatana = () => {
   const todayFormatted = date.toLocaleDateString("en-GB");
   const [ingresoPatana, setIngresoPatana] = useState(null);
   const [loading, setLoading] = React.useState(true);
+  const [todayHead, setTodayHead] = React.useState(date.toLocaleDateString("en-GB"));
+
 
   function getIngreso() {
     setLoading(true);
@@ -24,6 +26,7 @@ const ReportPatana = () => {
           setIngresoPatana(res.data.result);
         })
         .finally(() => setLoading(false));
+        setTodayHead(dateChosen)
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +48,7 @@ const ReportPatana = () => {
   return (
     <div className="informe-wrapper">
       <p className="ingreso-title">
-        {todayFormatted} - Informe de Ingreso de patana de provincia en el
+        {todayHead} - Informe de Ingreso de patana de provincia en el
         CO7003
       </p>
       <div className="icon-wrapper">

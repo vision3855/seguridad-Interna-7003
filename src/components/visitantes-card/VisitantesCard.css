@@ -1,0 +1,233 @@
+.full-vis-container{
+  padding-top: 5px;
+  background: var(--glass-color);
+  width: 96vw;
+  margin: 0 auto;
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.master-card-visit {
+  width: 96vw;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  min-height: calc(100vh - 70px);
+  padding-top: 10px;
+}
+
+.wrapper-card-visitor {
+  border: 1.5px rgb(0, 2, 128) solid;
+  width: 300px;
+  height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.459);
+  background-color: rgb(161, 206, 245);
+  background-image: url("../../assets/images/card-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.top-visitor-card {
+  width: 100%;
+  height: 190px;
+  border-radius: 12px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px rgb(134, 160, 134) solid;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.459);
+}
+
+.top-visitor-card img {
+  height: 100%;
+  vertical-align: middle;
+}
+
+.bottom-visitor-card {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.visitor-name {
+  font-size: 2rem;
+  font-weight: 500;
+  font-family: "Cookie", cursive;
+  font-style: normal;
+}
+
+.visitor-business {
+  font-family: "Sancreek", serif;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+}
+
+.visitor-area,
+.visitor-motivo,
+.visitor-autorization {
+  font-size: 0.9rem;
+}
+
+.hora-visita {
+  display: flex;
+  gap: 30px;
+  margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .full-vis-container {
+    max-width: 1500px;
+  }
+
+  .master-card-visit {
+    max-width: 1500px;
+    width: 96vw;
+    margin: 0 auto; /* better centering */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: start;
+  }
+
+  .wrapper-card-visitor {
+    border: 1.5px rgb(0, 2, 128) solid;
+    width: 310px;
+    height: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.459);
+    background-color: rgb(161, 206, 245);
+    background-image: url("../../assets/images/card-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .top-visitor-card {
+    width: 100%;
+    height: 190px;
+    border-radius: 12px;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px rgb(134, 160, 134) solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.459);
+  }
+
+  .top-visitor-card img {
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .bottom-visitor-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .visitor-name {
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: "Cookie", cursive;
+    font-style: normal;
+  }
+
+  .visitor-business {
+    font-family: "Sancreek", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 8px;
+  }
+
+  .visitor-area,
+  .visitor-motivo,
+  .visitor-autorization {
+    font-size: 0.9rem;
+  }
+
+  .hora-visita {
+    display: flex;
+    gap: 30px;
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 1050px) {
+  .master-card-visit {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .wrapper-card-visitor {
+    border: 1.5px rgb(0, 2, 128) solid;
+    width: 310px;
+    height: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.459);
+    background-color: rgb(161, 206, 245);
+    background-image: url("../../assets/images/card-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .top-visitor-card {
+    width: 100%;
+    height: 190px;
+    border-radius: 12px;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px rgb(134, 160, 134) solid;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.459);
+  }
+
+  .top-visitor-card img {
+    height: 100%;
+    vertical-align: middle;
+  }
+
+  .bottom-visitor-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .visitor-name {
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: "Cookie", cursive;
+    font-style: normal;
+  }
+
+  .visitor-business {
+    font-family: "Sancreek", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 8px;
+  }
+
+  .visitor-area,
+  .visitor-motivo,
+  .visitor-autorization {
+    font-size: 0.9rem;
+  }
+
+  .hora-visita {
+    display: flex;
+    gap: 30px;
+    margin-top: 8px;
+  }
+}

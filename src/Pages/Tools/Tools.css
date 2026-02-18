@@ -1,4 +1,17 @@
+.tools-wrapper{
+  padding-top: 5px;
+  background: var(--glass-color);
+  width: 96vw;
+  margin: 0 auto;
+  height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+}
+
 .element-wrapper {
+  font-family: "Sancreek", serif; 
+  font-weight: 400;
+  background: var(--glass-opacity);
   display: flex;
   width: 85vw;
   margin: 15px auto;
@@ -7,15 +20,19 @@
   gap: 30px;
   border-radius: 12px;
   overflow: hidden;
+  border: var(--border-color) 3px solid;
+  
+  box-shadow: var(--box-shadow);
+  color: aliceblue;
 }
 
 .img-tools-wrapper {
   display: flex;
+  border: var(--border-color) 3px solid;
   position: relative;
   width: 85vw;
-  border: 1px solid rgb(6, 14, 6);
   height: calc(85vw / 1.6);
-  border-radius: 2px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow:
     inset 3px 3px 5px rgba(0, 0, 0, 0.05),
@@ -26,6 +43,7 @@
   display: block;
   object-fit: cover;
   width: 100%;
+  
 }
 
 .txt-tools-wrapper {
@@ -39,20 +57,20 @@
   transform: translate(-50%, -50%);
   font-size: calc(90vw / 13);
   white-space: nowrap;
-  font-weight: bolder;
+  font-weight: normal;
   /* text-shadow: 
     0 0 10px #e9f8f7,
     0 0 20px #00ffea,
     0 0 30px #00ffea; */
   text-shadow:
-    0 0 5px #fff,
-    0 0 10px #fff,
-    0 0 15px #fff,
-    0 0 20px #18a83c,
-    0 0 35px #18a83c,
-    0 0 40px #18a83c,
-    0 0 50px #18a83c,
-    0 0 75px #18a83c;
+    0 0 5px #4dbcf0,
+    0 0 10px #4dbcf0,
+    0 0 15px #4dbcf0,
+    0 0 20px #4f18a8,
+    0 0 35px #4f18a8,
+    0 0 40px #4f18a8,
+    0 0 50px #4f18a8,
+    0 0 75px #4f18a8;
   animation: neon-flicker 1.5s infinite alternate;
 }
 
@@ -62,9 +80,7 @@
   }
   .img-tools-wrapper {
     width: 100%;
-    border: 1px solid rgb(6, 14, 6);
     height: calc(60vw / 1.6);
-    border-radius: 2px;
     overflow: hidden;
     box-shadow:
       inset 3px 3px 5px rgba(0, 0, 0, 0.05),
@@ -76,8 +92,13 @@
 }
 
 @media (min-width: 768px) {
+  .tools-wrapper{
+    max-width: 1500px;
+  }
+
   .element-wrapper {
     max-width: 800px;
+    padding: 10px;
   }
 
   .txt-tools-wrapper {
@@ -87,6 +108,7 @@
     flex: 0.35;
     font-size: 1.8rem;
     text-align: center;
+    
   }
   .img-tools-wrapper {
     flex: 0.65;
@@ -106,14 +128,14 @@
   57%,
   100% {
     text-shadow:
-      0 0 5px #fff,
-      0 0 10px #fff,
-      0 0 15px #fff,
-      0 0 20px #18a83c,
-      0 0 35px #18a83c,
-      0 0 40px #18a83c,
-      0 0 50px #18a83c,
-      0 0 75px #18a83c;
+      0 0 5px #4dbcf0,
+      0 0 10px #4dbcf0,
+      0 0 15px #4dbcf0,
+      0 0 20px #4f18a8,
+      0 0 35px #4f18a8,
+      0 0 40px #4f18a8,
+      0 0 50px #4f18a8,
+      0 0 75px #4f18a8;
   }
   20%,
   24%,

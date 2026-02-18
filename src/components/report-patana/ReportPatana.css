@@ -1,9 +1,15 @@
 .informe-wrapper {
+  padding-top: 30px;
+  width: 96vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   font-size: 25px;
+  background: var(--glass-color);
+  max-width: 1500px;
+  margin: 0 auto;
+  min-height: calc(100vh - 70px);
 }
 
 .icon-wrapper {
@@ -44,15 +50,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: aliceblue;
 }
 
 .ingreso-grid:nth-child(even) {
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(40, 29, 99);
 }
 
 @media (max-width: 1000px) {
   .ingreso-grid {
-    grid-template-columns: 90px 140px 300px;/* Placa | Chofer */
+    grid-template-columns: 90px 140px 300px; /* Placa | Chofer */
   }
 
   /* Hide unwanted columns */
@@ -78,10 +85,12 @@
     font-size: 18px;
     margin-inline: 10px;
     text-align: center;
+    color: aliceblue;
   }
 }
 
 @media (max-width: 768px) {
+
   .ingreso-grid {
     grid-template-columns: 90px 140px; /* Placa | Chofer */
   }
@@ -105,5 +114,6 @@
     font-size: 18px;
     margin-inline: 10px;
     text-align: center;
+    color: aliceblue;
   }
 }

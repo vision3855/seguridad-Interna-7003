@@ -4,20 +4,55 @@ import axios from "axios";
 
 const Visitantes = () => {
   const [visitanteOption, setVisitanteOption] = useState("nuevo");
-  const hourInRef = useRef(null);
   const nameRef = useRef(null);
   const idNumberRef = useRef(null);
   const businessRef = useRef(null);
   const areaRef = useRef(null);
   const motifRef = useRef(null);
   const autorizadoRef = useRef(null);
+  const wrapperVisit = useRef(null);
   const [preview, setPreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadMessage, setUploadMessage] = useState("");
+  const [dataVisited, setDataVisited] = useState([]);
+  const [actualVisitor, setActualVisitor] = useState({});
 
   const formRef = useRef(null);
 
   const API_URL = "https://segintco7003.onrender.com/api/images";
+
+  async function handleSearchName(e) {
+    const value = e.target.value;
+    if (!value.trim()) {
+      setDataVisited([]);
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `https://segintco7003.onrender.com/api/images/?name=${nameRef.current.value}`,
+      );
+      setDataVisited(response.data.images);
+      wrapperVisit.current.classList.add("visit-search-visible");
+    } catch (error) {
+      console.error(error);
+      setUploadMessage(
+        "❌ Error: " + (error.response?.data?.error || error.message),
+      );
+    }
+  }
+
+  function fillField(obj) {
+    nameRef.current.value = obj.name;
+    businessRef.current.value = obj.business;
+    areaRef.current.value = obj.zoneVisited;
+    motifRef.current.value = obj.visitMotif;
+    autorizadoRef.current.value = obj.authorizedBy;
+
+    setActualVisitor(obj);
+
+    wrapperVisit.current.classList.remove("visit-search-visible");
+  }
 
   function formatDateHour(date) {
     return (
@@ -49,42 +84,90 @@ const Visitantes = () => {
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    if (!selectedFile) {
-      setUploadMessage("Please select an image first");
-      return;
-    }
-
     const myDate = new Date();
     const formData = new FormData();
 
-    formData.append("image", selectedFile);
-    formData.append("name", nameRef.current.value);
-    formData.append("idNumber", idNumberRef.current.value);
-    formData.append("business", businessRef.current.value);
-    formData.append("hourIn", hourInRef.current.value || formatDateHour(myDate).split(" ")[1]);
-    formData.append("hourOut", formatDateHour(myDate).split(" ")[1]);
-    formData.append("zoneVisited", areaRef.current.value);
-    formData.append("visitMotif", motifRef.current.value);
-    formData.append("authorizedBy", autorizadoRef.current.value);
+    if (visitanteOption === "nuevo") {
+      if (!selectedFile) {
+        setUploadMessage("Please select an image first");
+        return;
+      }
+      formData.append("image", selectedFile);
+      formData.append("name", nameRef.current.value);
+      formData.append("idNumber", idNumberRef.current.value);
+      formData.append("business", businessRef.current.value);
+      formData.append("hourIn", formatDateHour(myDate).split(" ")[1]);
+      formData.append("hourOut", formatDateHour(myDate).split(" ")[1]);
+      formData.append("zoneVisited", areaRef.current.value);
+      formData.append("visitMotif", motifRef.current.value);
+      formData.append("authorizedBy", autorizadoRef.current.value);
 
-    try {
-      const response = await axios.post(
-        "https://segintco7003.onrender.com/api/images/upload",
-        formData,
-        // 🚫 no headers
-      );
+      try {
+        const response = await axios.post(
+          "https://segintco7003.onrender.com/api/images/upload",
+          formData,
+          // 🚫 no headers
+        );
+        console.log(response.data.data.id);
 
-      setUploadMessage("✅ " + response.data.message);
-      setSelectedFile(null);
-      setPreview(null);
-      formRef.current.reset();
-      console.log('oh yeah');
+        const visitData = {
+          hourIn: response.data.data.hourIn,
+          name: response.data.data.name,
+          idNumber: response.data.data.idNumber,
+          business: response.data.data.business,
+          zoneVisited: response.data.data.zoneVisited,
+          visitMotif: response.data.data.visitMotif,
+          authorizedBy: response.data.data.authorizedBy,
+          hourOut: response.data.data.hourOut,
+          refImg: response.data.data.id,
+        };
+
+        await axios.post(
+          "https://segintco7003.onrender.com/visit",
+          visitData,
+        );
+
+        setUploadMessage("✅ " + response.data.message);
+        setSelectedFile(null);
+        setPreview(null);
+        formRef.current.reset();
+      } catch (error) {
+        console.error(error);
+        setUploadMessage(
+          "❌ Error: " + (error.response?.data?.error || error.message),
+        );
+      }
+    } else {
+      const visitData = {
+        hourIn: formatDateHour(myDate).split(" ")[1],
+        name: actualVisitor.name,
+        idNumber: actualVisitor.idNumber,
+        business: businessRef.current.value,
+        zoneVisited: areaRef.current.value,
+        visitMotif: motifRef.current.value,
+        authorizedBy: autorizadoRef.current.value,
+        hourOut: formatDateHour(myDate).split(" ")[1],
+        refImg: actualVisitor._id,
+      };
+      console.log(visitData);
       
-    } catch (error) {
-      console.error(error);
-      setUploadMessage(
-        "❌ Error: " + (error.response?.data?.error || error.message),
-      );
+      try {
+        const visitResponse = await axios.post(
+          "https://segintco7003.onrender.com/visit",
+          visitData,
+        );
+
+        setUploadMessage("✅ " + visitResponse.data.message);
+        setSelectedFile(null);
+        setPreview(null);
+        formRef.current.reset();
+        console.log(visitResponse);
+      } catch (error) {
+        console.error(error);
+        setUploadMessage(
+          "❌ Error: " + (error.response?.data?.error || error.message),
+        );
+      }
     }
   };
 
@@ -117,7 +200,12 @@ const Visitantes = () => {
           ya visitado
         </span>
       </div>
-      <form className="form-visitantes" form ref={formRef} action="" onSubmit={(e)=>handleUpload(e)}>
+      <form
+        className="form-visitantes"
+        ref={formRef}
+        action=""
+        onSubmit={(e) => handleUpload(e)}
+      >
         <div style={styles.uploadBox}>
           <input
             type="file"
@@ -148,9 +236,7 @@ const Visitantes = () => {
         )}
         {visitanteOption === "nuevo" ? (
           <>
-
-
-            <div className="nombre-wrapper grid-visitantes">
+            <div className="nombre-wrapper-vis grid-visitantes">
               <label htmlFor="nombre-record">Nombre completo</label>
               <input
                 type="text"
@@ -219,7 +305,31 @@ const Visitantes = () => {
                 name="nombre-record"
                 id="nombre-record"
                 ref={nameRef}
+                onChange={(e) => {
+                  handleSearchName(e);
+                }}
               />
+
+              <div className="wrapper-display-visitantes" ref={wrapperVisit}>
+                {dataVisited.map((result) => (
+                  <div
+                    className="display-visitantes-search"
+                    onClick={() => fillField(result)}
+                    key={result._id}
+                  >
+                    <div className="left-visitantes-search">
+                      <img
+                        src={`${API_URL}/${result._id}`}
+                        alt={`image of ${result.name}`}
+                      />
+                    </div>
+                    <div className="right-visitantes-search">
+                      <p id="first-vis-search">{result.name}</p>
+                      <p id="second-vis-search">{result.business}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="business-wrapper grid-visitantes">
               <label htmlFor="business-record">Empresa</label>
@@ -263,7 +373,7 @@ const Visitantes = () => {
           </>
         )}
 
-        <button onClick={(e)=>handleUpload(e)} className="registrar-button">
+        <button onClick={(e) => handleUpload(e)} className="registrar-button">
           Registrar
         </button>
       </form>

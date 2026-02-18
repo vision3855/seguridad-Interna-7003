@@ -3,6 +3,7 @@ import FormInput from "../Form-input/FormInput";
 import TextReport from "../Text-Report/TextReport";
 import DisplayProducts from "../Display-products/DisplayProducts";
 import Alert from "../Alert-message/Alert";
+import './PatanaFlow.css';
 
 const PatanaFlow = () => {
   const [textToShow, setTextToShow] = useState("");
@@ -12,7 +13,7 @@ const PatanaFlow = () => {
     message: "",
   });
   return (
-    <>
+    <div className="bg-ingreso-patana">
       <FormInput
         setTextToShow={setTextToShow}
         Products={Products}
@@ -26,7 +27,7 @@ const PatanaFlow = () => {
       />
       <TextReport textToShow={textToShow} setAlertMessage={setAlertMessage} />
       <Alert alertMessage={alertMessage} />
-    </>
+    </div>
   );
 };
 

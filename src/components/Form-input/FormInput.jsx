@@ -293,10 +293,10 @@ Nota: La patana sale vacía, sin producto a bordo.`);
             />
             <div className="display-driver" ref={displayDriver}>
               {displayDriverArray.length > 0 &&
-                displayDriverArray.map((item) => (
+                displayDriverArray.map((item, index) => (
                   <div
                     key={item._id}
-                    className="single-driver"
+                    className={`single-driver ${index % 2 === 0 ? 'driver-even' : 'driver-odd'}`}
                     onClick={() => selectDriver(item)}
                   >
                     <span>{item.driver}</span>
