@@ -19,6 +19,11 @@ export const kolaReal = [
         description: "Kola real 400 ml - Limón",
         color: 'rgb(21, 145, 68)'
     },
+    {
+        name: 'Champagne',
+        description: "Kola real 400 ml - Champagne",
+        color: 'rgb(21, 145, 68)'
+    },
 ];
 
 export const frutop300 = [

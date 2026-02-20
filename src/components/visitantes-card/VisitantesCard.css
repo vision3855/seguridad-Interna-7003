@@ -1,13 +1,24 @@
-.full-vis-container{
+.full-vis-container {
   padding-top: 5px;
   background: var(--glass-color);
   width: 96vw;
   margin: 0 auto;
-  height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
+.load-center {
+  display: flex;
+  justify-content: center;
+  color: aliceblue;
+}
+
+.no-vis-txt {
+  margin: 0 auto;
+  color: aliceblue;
+  text-align: center;
 }
 
 .master-card-visit {
@@ -18,22 +29,51 @@
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  min-height: calc(100vh - 70px);
   padding-top: 10px;
 }
 
 .wrapper-card-visitor {
-  border: 1.5px rgb(0, 2, 128) solid;
+  position: relative;
+  border: 1.5px rgb(255, 255, 255) solid;
   width: 300px;
-  height: 380px;
+  min-height: 380px;
   border-radius: 12px;
-  overflow: hidden;
   padding: 10px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.459);
   background-color: rgb(161, 206, 245);
   background-image: url("../../assets/images/card-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.check-finished {
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  font-weight: bolder;
+  color: aliceblue;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    rgba(42, 123, 155, 1) 0%,
+    rgba(87, 199, 133, 1) 50%,
+    rgba(237, 221, 83, 1) 100%
+  );
+  cursor: pointer;
+  border: 1px rgb(202, 202, 202) solid;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.781);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  background: #7a7979;
 }
 
 .top-visitor-card {
@@ -56,6 +96,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .visitor-name {
@@ -100,12 +141,17 @@
     align-items: start;
   }
 
+  .master-card-visit.center-less-two-visit {
+    display: flex;
+    justify-content: center;
+    gap:80px;
+    flex-direction: row;
+  }
+  
   .wrapper-card-visitor {
-    border: 1.5px rgb(0, 2, 128) solid;
     width: 310px;
-    height: 380px;
+
     border-radius: 12px;
-    overflow: hidden;
     padding: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.459);
     background-color: rgb(161, 206, 245);
@@ -170,11 +216,9 @@
   }
 
   .wrapper-card-visitor {
-    border: 1.5px rgb(0, 2, 128) solid;
     width: 310px;
     height: 380px;
     border-radius: 12px;
-    overflow: hidden;
     padding: 10px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.459);
     background-color: rgb(161, 206, 245);

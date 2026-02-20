@@ -105,10 +105,12 @@ const FormInput = ({
           placaUnidad: placaUnidadRef.current.value,
         };
 
-    const url = `https://segintco7003.onrender.com/patana?driver=${driverRef.current.value}`;
-    const response = await axios(url);
+    const url = `https://segintco7003.onrender.com/patana/?driver=${driverRef.current.value}`;
+    const response = await axios.get(url);
 
     const dataFetched = response.data.patanas;
+    console.log(data);
+    
 
     async function postData(data, where) {
       const res = await axios.post(
@@ -118,7 +120,7 @@ const FormInput = ({
       return res;
     }
 
-    if (!dataFetched.length) {
+    if (dataFetched.length < 1) {
       try {
         const res = await postData(data, "patana");
         setAlertMessage((prev) => ({
