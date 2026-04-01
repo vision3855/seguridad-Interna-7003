@@ -1,10 +1,23 @@
+.register-prompt {
+  display: flex;
+  justify-content: center;
+}
+
+.register-prompt .spacer {
+  margin: 0 2px;
+  font-size: 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 header {
   max-width: 1500px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  margin: 1px auto ;
+  margin: 1px auto;
   position: relative;
 }
 
@@ -12,10 +25,10 @@ header {
   width: 80px;
 }
 
-.main-title {
-  font-weight: 700;
-  font-size: 20px;
-  font-family: "Ubuntu";
+.user-area {
+  display: block;
+  width: 50px;
+  cursor: pointer;
 }
 
 .menu-wrapper {
@@ -44,12 +57,12 @@ header {
   color: inherit;
 }
 
-.toggle-menu{
+.toggle-menu {
   display: none;
   cursor: pointer;
 }
 
-.bar{
+.bar {
   display: block;
   height: 4px;
   width: 35px;
@@ -57,6 +70,19 @@ header {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   background-color: rgb(15, 102, 30);
+}
+
+.auth-user-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.user-area-auth {
+  display: block;
+  width: 45px;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -105,7 +131,7 @@ header {
 }
 
 @media (max-width: 768px) {
-  .toggle-menu{
+  .toggle-menu {
     display: block;
   }
 
@@ -125,7 +151,7 @@ header {
     z-index: 5;
   } */
 
-  .menu-wrapper{
+  .menu-wrapper {
     position: fixed;
     left: -100%;
     top: 60px;
@@ -134,12 +160,12 @@ header {
     background-color: rgb(255, 255, 255);
     width: 100%;
     transition: 0.3s;
-    z-index:5;
+    z-index: 5;
     padding: 10px;
     font-weight: bolder;
   }
 
-  .menu-wrapper.active{
+  .menu-wrapper.active {
     left: 0;
   }
 
@@ -151,17 +177,15 @@ header {
     border: none;
   }
 
-  .toggle-menu.active .bar:nth-child(2){
-    opacity:0;
+  .toggle-menu.active .bar:nth-child(2) {
+    opacity: 0;
   }
 
-  .toggle-menu.active .bar:nth-child(1){
+  .toggle-menu.active .bar:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
-
   }
 
-  .toggle-menu.active .bar:nth-child(3){
+  .toggle-menu.active .bar:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
   }
-
 }

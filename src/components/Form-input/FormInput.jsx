@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./FormInput.css";
+import { useUser } from "../../contexts/context";
+
 
 const FormInput = ({
   setTextToShow,
@@ -8,6 +10,8 @@ const FormInput = ({
   setProducts,
   setAlertMessage,
 }) => {
+  const { user } = useUser();
+  const token = localStorage.getItem("token");
   const [displayDriverArray, setDisplayDriverArray] = useState([]);
   const ISMRef = useRef(null);
   const terceroRef = useRef(null);
@@ -30,8 +34,14 @@ const FormInput = ({
     }
 
     try {
+      
       const response = await axios(
-        `https://segintco7003.onrender.com/patana?driver=${value}`,
+        `https://segintco7003.onrender.com/patana?driver=${value}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
       );
 
       const data = response.data?.patanas ?? [];
@@ -106,16 +116,24 @@ const FormInput = ({
         };
 
     const url = `https://segintco7003.onrender.com/patana/?driver=${driverRef.current.value}`;
-    const response = await axios.get(url);
+    const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-    const dataFetched = response.data.patanas;
-    console.log(data);
-    
+    const dataFetched = response.data.patanas;    
 
     async function postData(data, where) {
       const res = await axios.post(
         `https://segintco7003.onrender.com/${where}`,
-        data,
+        data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
       );
       return res;
     }
@@ -257,6 +275,7 @@ Nota: La patana sale vacía, sin producto a bordo.`);
   }
 
   return (
+
     <section className="record">
       <form className="form-record">
         <p className="top-title-text">Registro de nuevo camión</p>

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import Header from "./components/Header/Header";
 import ReportPatana from "./components/report-patana/ReportPatana";
@@ -13,6 +13,9 @@ import reportvis from "./assets/images/menu-details/reportvis.jpeg";
 
 import IngresoPatana from "./Pages/IngresoPatana/IngresoPatana";
 import VisitantesCard from "./components/visitantes-card/VisitantesCard";
+import Auth from "./components/auth/AuthComponent";
+import { UserProvider } from "./contexts/context";
+import UserProfile from "./components/user/UserProfile";
 const toolsData = [
   { name: "Calculator para Almacen", image: imgAlm, to: "/tools/calculator" },
 ];
@@ -28,18 +31,22 @@ const informeData = [
 function App() {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/redactar/ingreso" element={<IngresoPatana />} />
-        <Route path="/informe/patana" element={<ReportPatana />} />
-        <Route path="/informe/visitantes" element={<VisitantesCard />} />
-        <Route path="/informe" element={<Tools obj={informeData} />} />
-        <Route path="/tools" element={<Tools obj={toolsData} />} />
-        <Route path="/redactar" element={<Tools obj={redactarData} />} />
-        <Route path="/tools/calculator" element={<CalculatorAlmacen />} />
-        <Route path="/redactar/visitantes" element={<Visitantes />} />
-      </Routes>
+      <UserProvider>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/redactar/ingreso" element={<IngresoPatana />} />
+          <Route path="/informe/patana" element={<ReportPatana />} />
+          <Route path="/informe/visitantes" element={<VisitantesCard />} />
+          <Route path="/informe" element={<Tools obj={informeData} />} />
+          <Route path="/tools" element={<Tools obj={toolsData} />} />
+          <Route path="/redactar" element={<Tools obj={redactarData} />} />
+          <Route path="/tools/calculator" element={<CalculatorAlmacen />} />
+          <Route path="/redactar/visitantes" element={<Visitantes />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/profile" element={<UserProfile />} />
+        </Routes>
+      </UserProvider>
     </>
   );
 }

@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./VisitantesCard.css";
 import axios from "axios";
+import { useUser } from "../../contexts/context";
+import RegisterPrompt from "../RegisterPrompt";
 
 const VisitantesCard = () => {
+  const { login } = useUser();
   const date = new Date();
   const formattedDate = new Intl.DateTimeFormat("en-CA").format(date);
   const todayFormatted = date.toLocaleDateString("en-GB");
@@ -18,19 +21,18 @@ const VisitantesCard = () => {
   const URL = "https://segintco7003.onrender.com/visit";
 
   async function fetchCard() {
-      const dateChosen = dateRef.current.value;
+    const dateChosen = dateRef.current.value;
     const dateAdapted = `${dateChosen[8]}${dateChosen[9]}/${dateChosen[5]}${dateChosen[6]}/${dateChosen[0]}${dateChosen[1]}${dateChosen[2]}${dateChosen[3]}`;
-      try {
-        const response = await axios.get(
-          `https://segintco7003.onrender.com/visit/?dia=${dateAdapted}`,
-        );
-        setLoading(false);
-        setAllCardData(response.data.data);
-        
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      const response = await axios.get(
+        `https://segintco7003.onrender.com/visit/?dia=${dateAdapted}`,
+      );
+      setLoading(false);
+      setAllCardData(response.data.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   useEffect(() => {
     async function fetchCard() {
@@ -41,14 +43,12 @@ const VisitantesCard = () => {
         );
         setLoading(false);
         setAllCardData(response.data.data);
-        
       } catch (error) {
         console.log(error);
       }
     }
+    if(login){fetchCard();}
     
-    fetchCard();
-
   }, [todayFormatted, formattedDate]);
 
   function formatDateHour(date) {
@@ -104,73 +104,85 @@ const VisitantesCard = () => {
   }
 
   return (
-    <div className="full-vis-container">
-      <p className="ingreso-title">
-        {todayHead} - Informe de Relacion visitantes en el CO7003
-      </p>
+    <>
+      {login ? (
+        <div className="full-vis-container">
+          <p className="ingreso-title">
+            {todayHead} - Informe de Relacion visitantes en el CO7003
+          </p>
 
-      <div className="icon-wrapper">
-        <input
-          type="date"
-          className="date-icon"
-          ref={dateRef}
-          onChange={getIngreso}
-        />
-      </div>
+          <div className="icon-wrapper">
+            <input
+              type="date"
+              className="date-icon"
+              ref={dateRef}
+              onChange={getIngreso}
+            />
+          </div>
 
-      <div
-        className={
-          loading || allCardData.length < 1
-            ? "load-center"
-            : allCardData.length < 3 ? 'master-card-visit center-less-two-visit' : "master-card-visit"
-        }
-      >
-        {loading ? (
-          "Loading..."
-        ) : allCardData.length ? (
-          allCardData.map((card) => (
-            <div className={"wrapper-card-visitor"} key={card._id}>
-              <div
-                className={card.status === 'salio'? "check-finished disabled" : "check-finished"}
-                onClick={() => changeStatus(card)}
-              >
-                &#10003;
-              </div>
-              <div className="top-visitor-card">
-                <img
-                  src={`https://segintco7003.onrender.com/api/images/${card.refImg}`}
-                  alt=""
-                />
-              </div>
-              <div className="bottom-visitor-card">
-                <p className="visitor-name">{card.name}</p>
-                <p className="visitor-business">{card.business}</p>
-                <p className="visitor-id">{card.idNumber}</p>
-                <p className="visitor-area">
-                  Area visitada: {card.zoneVisited}
-                </p>
-                <p className="visitor-motivo">
-                  Motivo de la visita: {card.visitMotif}
-                </p>
-                <p className="visitor-autorization">
-                  Autorizado por: {card.authorizedBy}
-                </p>
-                <div className="hora-visita">
-                  <p className="left-hora">{card.hourIn}</p>
-                  <p className="right-hora">
-                    {card.status !== "salio"
-                      ? "Dentro del centro"
-                      : card.hourOut}
-                  </p>
+          <div
+            className={
+              loading || allCardData.length < 1
+                ? "load-center"
+                : allCardData.length < 3
+                  ? "master-card-visit center-less-two-visit"
+                  : "master-card-visit"
+            }
+          >
+            {loading ? (
+              "Loading..."
+            ) : allCardData.length ? (
+              allCardData.map((card) => (
+                <div className={"wrapper-card-visitor"} key={card._id}>
+                  <div
+                    className={
+                      card.status === "salio"
+                        ? "check-finished disabled"
+                        : "check-finished"
+                    }
+                    onClick={() => changeStatus(card)}
+                  >
+                    &#10003;
+                  </div>
+                  <div className="top-visitor-card">
+                    <img
+                      src={`https://segintco7003.onrender.com/api/images/${card.refImg}`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="bottom-visitor-card">
+                    <p className="visitor-name">{card.name}</p>
+                    <p className="visitor-business">{card.business}</p>
+                    <p className="visitor-id">{card.idNumber}</p>
+                    <p className="visitor-area">
+                      Area visitada: {card.zoneVisited}
+                    </p>
+                    <p className="visitor-motivo">
+                      Motivo de la visita: {card.visitMotif}
+                    </p>
+                    <p className="visitor-autorization">
+                      Autorizado por: {card.authorizedBy}
+                    </p>
+                    <div className="hora-visita">
+                      <p className="left-hora">{card.hourIn}</p>
+                      <p className="right-hora">
+                        {card.status !== "salio"
+                          ? "Dentro del centro"
+                          : card.hourOut}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <span className="no-vis-txt">No hay visitantes {noVisDate}</span>
-        )}
-      </div>
-    </div>
+              ))
+            ) : (
+              <span className="no-vis-txt">No hay visitantes {noVisDate}</span>
+            )}
+          </div>
+        </div>
+      ) : (
+        <RegisterPrompt detail="redactar" />
+      )}
+    </>
   );
 };
 

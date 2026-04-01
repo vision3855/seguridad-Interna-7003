@@ -53,7 +53,17 @@
   color: aliceblue;
 }
 
-.ingreso-grid:nth-child(even) {
+
+
+.ingreso-report-by{
+  display: flex;
+  justify-content: center;
+  color: yellow;
+  margin-block: 6px;
+  font-size: 14px;
+}
+
+.ingreso-grid-main:nth-child(even) {
   background-color: rgb(40, 29, 99);
 }
 

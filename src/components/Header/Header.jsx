@@ -1,25 +1,27 @@
 import "./header.css";
 import ismLogo from "../../../../images/logo-ism-media.png";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { menu } from "../../../../data";
+import userImg from "../../assets/images/user.png";
+import { useUser } from "../../contexts/context";
 
 const Header = () => {
+  const { user, login } = useUser();
 
   const hamburgerRef = useRef(null);
   const menuWrapperRef = useRef(null);
 
   function toggleMenu() {
-    hamburgerRef.current.classList.toggle('active');
-    menuWrapperRef.current.classList.toggle('active');
+    hamburgerRef.current.classList.toggle("active");
+    menuWrapperRef.current.classList.toggle("active");
   }
 
   function removeClass() {
-    if (menuWrapperRef.current.classList.contains('active')){
-      menuWrapperRef.current.classList.remove('active');
-      hamburgerRef.current.classList.toggle('active');
+    if (menuWrapperRef.current.classList.contains("active")) {
+      menuWrapperRef.current.classList.remove("active");
+      hamburgerRef.current.classList.toggle("active");
     }
-    
   }
 
   function toggleBorderBottom(e) {
@@ -34,8 +36,10 @@ const Header = () => {
   return (
     <div>
       <header>
-        <Link to='/'><img className="main-logo" src={ismLogo} alt="ism logo" /></Link>
-        
+        <Link to="/">
+          <img className="main-logo" src={ismLogo} alt="ism logo" />
+        </Link>
+
         <ul className="menu-wrapper" ref={menuWrapperRef} onClick={removeClass}>
           {menu.map((item) => (
             <li key={item.name} onClick={toggleBorderBottom}>
@@ -45,7 +49,19 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        <p className="main-title">Seguridad Interna</p>
+        {login ? (
+          <div className="auth-user-area">
+            <Link to={user?.data.name ? "/profile" : "/auth"}>
+              <img className="user-area-auth" src={userImg} />
+            </Link>
+            <p>Saludo {user?.data.name}!</p>
+          </div>
+        ) : (
+          <Link to="/auth">
+            <img className="user-area" src={userImg} />
+          </Link>
+        )}
+
         <div className="toggle-menu" onClick={toggleMenu} ref={hamburgerRef}>
           <div className="bar"></div>
           <div className="bar"></div>

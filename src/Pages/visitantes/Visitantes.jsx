@@ -1,8 +1,11 @@
 import React, { useRef, useState } from "react";
 import "./Visitantes.css";
 import axios from "axios";
+import { useUser } from "../../contexts/context";
+import RegisterPrompt from "../../components/RegisterPrompt";
 
 const Visitantes = () => {
+  const { login } = useUser();
   const [visitanteOption, setVisitanteOption] = useState("nuevo");
   const nameRef = useRef(null);
   const idNumberRef = useRef(null);
@@ -122,10 +125,7 @@ const Visitantes = () => {
           refImg: response.data.data.id,
         };
 
-        await axios.post(
-          "https://segintco7003.onrender.com/visit",
-          visitData,
-        );
+        await axios.post("https://segintco7003.onrender.com/visit", visitData);
 
         setUploadMessage("✅ " + response.data.message);
         setSelectedFile(null);
@@ -150,7 +150,7 @@ const Visitantes = () => {
         refImg: actualVisitor._id,
       };
       console.log(visitData);
-      
+
       try {
         const visitResponse = await axios.post(
           "https://segintco7003.onrender.com/visit",
@@ -179,205 +179,221 @@ const Visitantes = () => {
     }
   }
   return (
-    <div
-      className={
-        visitanteOption === "nuevo"
-          ? "form-visitantes-wrapper"
-          : "form-visitantes-wrapper ya-visitado"
-      }
-    >
-      <div className="visitantes-option">
-        <span
-          className="option-span-visitantes1"
-          onClick={() => handleVisitanteOption("nuevo")}
+    <>
+      {login ? (
+        <div
+          className={
+            visitanteOption === "nuevo"
+              ? "form-visitantes-wrapper"
+              : "form-visitantes-wrapper ya-visitado"
+          }
         >
-          nuevo visitante
-        </span>
-        <span
-          className="option-span-visitantes2"
-          onClick={() => handleVisitanteOption("ya")}
-        >
-          ya visitado
-        </span>
-      </div>
-      <form
-        className="form-visitantes"
-        ref={formRef}
-        action=""
-        onSubmit={(e) => handleUpload(e)}
-      >
-        <div style={styles.uploadBox}>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileSelect}
-            style={styles.fileInput}
-          />
-
-          {preview && (
-            <div style={styles.previewBox}>
-              <img src={preview} alt="Preview" style={styles.previewImage} />
-            </div>
-          )}
-        </div>
-
-        {uploadMessage && (
-          <div
-            style={{
-              ...styles.message,
-              backgroundColor: uploadMessage.includes("✅")
-                ? "#d4edda"
-                : "#f8d7da",
-              color: uploadMessage.includes("✅") ? "#155724" : "#721c24",
-            }}
-          >
-            {uploadMessage}
+          <div className="visitantes-option">
+            <span
+              className="option-span-visitantes1"
+              onClick={() => handleVisitanteOption("nuevo")}
+            >
+              nuevo visitante
+            </span>
+            <span
+              className="option-span-visitantes2"
+              onClick={() => handleVisitanteOption("ya")}
+            >
+              ya visitado
+            </span>
           </div>
-        )}
-        {visitanteOption === "nuevo" ? (
-          <>
-            <div className="nombre-wrapper-vis grid-visitantes">
-              <label htmlFor="nombre-record">Nombre completo</label>
+          <form
+            className="form-visitantes"
+            ref={formRef}
+            action=""
+            onSubmit={(e) => handleUpload(e)}
+          >
+            <div style={styles.uploadBox}>
               <input
-                type="text"
-                name="nombre-record"
-                id="nombre-record"
-                ref={nameRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileSelect}
+                style={styles.fileInput}
               />
+
+              {preview && (
+                <div style={styles.previewBox}>
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    style={styles.previewImage}
+                  />
+                </div>
+              )}
             </div>
 
-            <div className="cedula-wrapper grid-visitantes">
-              <label htmlFor="cedula-record">Cedula</label>
-              <input
-                type="text"
-                name="cedula-record"
-                id="cedula-record"
-                ref={idNumberRef}
-              />
-            </div>
-
-            <div className="business-wrapper grid-visitantes">
-              <label htmlFor="business-record">Empresa</label>
-              <input
-                type="text"
-                name="business-record"
-                id="business-record"
-                ref={businessRef}
-              />
-            </div>
-
-            <div className="nombre-wrapper grid-visitantes">
-              <label htmlFor="area-record">Area visitada</label>
-              <input
-                type="text"
-                name="area-record"
-                id="area-record"
-                ref={areaRef}
-              />
-            </div>
-
-            <div className="cedula-wrapper grid-visitantes">
-              <label htmlFor="motivo-record">Motivo de la visita</label>
-              <input
-                type="text"
-                name="motivo-record"
-                id="motivo-record"
-                ref={motifRef}
-              />
-            </div>
-
-            <div className="nombre-wrapper grid-visitantes">
-              <label htmlFor="autorizado-record">Autorizado por</label>
-              <input
-                type="text"
-                name="autorizado-record"
-                id="autorizado-record"
-                ref={autorizadoRef}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="nombre-wrapper grid-visitantes ">
-              <label htmlFor="nombre-record">Nombre completo</label>
-              <input
-                type="text"
-                name="nombre-record"
-                id="nombre-record"
-                ref={nameRef}
-                onChange={(e) => {
-                  handleSearchName(e);
+            {uploadMessage && (
+              <div
+                style={{
+                  ...styles.message,
+                  backgroundColor: uploadMessage.includes("✅")
+                    ? "#d4edda"
+                    : "#f8d7da",
+                  color: uploadMessage.includes("✅") ? "#155724" : "#721c24",
                 }}
-              />
-
-              <div className="wrapper-display-visitantes" ref={wrapperVisit}>
-                {dataVisited.map((result) => (
-                  <div
-                    className="display-visitantes-search"
-                    onClick={() => fillField(result)}
-                    key={result._id}
-                  >
-                    <div className="left-visitantes-search">
-                      <img
-                        src={`${API_URL}/${result._id}`}
-                        alt={`image of ${result.name}`}
-                      />
-                    </div>
-                    <div className="right-visitantes-search">
-                      <p id="first-vis-search">{result.name}</p>
-                      <p id="second-vis-search">{result.business}</p>
-                    </div>
-                  </div>
-                ))}
+              >
+                {uploadMessage}
               </div>
-            </div>
-            <div className="business-wrapper grid-visitantes">
-              <label htmlFor="business-record">Empresa</label>
-              <input
-                type="text"
-                name="business-record"
-                id="business-record"
-                ref={businessRef}
-              />
-            </div>
+            )}
+            {visitanteOption === "nuevo" ? (
+              <>
+                <div className="nombre-wrapper-vis grid-visitantes">
+                  <label htmlFor="nombre-record">Nombre completo</label>
+                  <input
+                    type="text"
+                    name="nombre-record"
+                    id="nombre-record"
+                    ref={nameRef}
+                  />
+                </div>
 
-            <div className="nombre-wrapper grid-visitantes">
-              <label htmlFor="area-record">Area visitada</label>
-              <input
-                type="text"
-                name="area-record"
-                id="area-record"
-                ref={areaRef}
-              />
-            </div>
+                <div className="cedula-wrapper grid-visitantes">
+                  <label htmlFor="cedula-record">Cedula</label>
+                  <input
+                    type="text"
+                    name="cedula-record"
+                    id="cedula-record"
+                    ref={idNumberRef}
+                  />
+                </div>
 
-            <div className="cedula-wrapper grid-visitantes">
-              <label htmlFor="motivo-record">Motivo de la visita</label>
-              <input
-                type="text"
-                name="motivo-record"
-                id="motivo-record"
-                ref={motifRef}
-              />
-            </div>
+                <div className="business-wrapper grid-visitantes">
+                  <label htmlFor="business-record">Empresa</label>
+                  <input
+                    type="text"
+                    name="business-record"
+                    id="business-record"
+                    ref={businessRef}
+                  />
+                </div>
 
-            <div className="nombre-wrapper grid-visitantes">
-              <label htmlFor="autorizado-record">Autorizado por</label>
-              <input
-                type="text"
-                name="autorizado-record"
-                id="autorizado-record"
-                ref={autorizadoRef}
-              />
-            </div>
-          </>
-        )}
+                <div className="nombre-wrapper grid-visitantes">
+                  <label htmlFor="area-record">Area visitada</label>
+                  <input
+                    type="text"
+                    name="area-record"
+                    id="area-record"
+                    ref={areaRef}
+                  />
+                </div>
 
-        <button onClick={(e) => handleUpload(e)} className="registrar-button">
-          Registrar
-        </button>
-      </form>
-    </div>
+                <div className="cedula-wrapper grid-visitantes">
+                  <label htmlFor="motivo-record">Motivo de la visita</label>
+                  <input
+                    type="text"
+                    name="motivo-record"
+                    id="motivo-record"
+                    ref={motifRef}
+                  />
+                </div>
+
+                <div className="nombre-wrapper grid-visitantes">
+                  <label htmlFor="autorizado-record">Autorizado por</label>
+                  <input
+                    type="text"
+                    name="autorizado-record"
+                    id="autorizado-record"
+                    ref={autorizadoRef}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="nombre-wrapper grid-visitantes ">
+                  <label htmlFor="nombre-record">Nombre completo</label>
+                  <input
+                    type="text"
+                    name="nombre-record"
+                    id="nombre-record"
+                    ref={nameRef}
+                    onChange={(e) => {
+                      handleSearchName(e);
+                    }}
+                  />
+
+                  <div
+                    className="wrapper-display-visitantes"
+                    ref={wrapperVisit}
+                  >
+                    {dataVisited.map((result) => (
+                      <div
+                        className="display-visitantes-search"
+                        onClick={() => fillField(result)}
+                        key={result._id}
+                      >
+                        <div className="left-visitantes-search">
+                          <img
+                            src={`${API_URL}/${result._id}`}
+                            alt={`image of ${result.name}`}
+                          />
+                        </div>
+                        <div className="right-visitantes-search">
+                          <p id="first-vis-search">{result.name}</p>
+                          <p id="second-vis-search">{result.business}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="business-wrapper grid-visitantes">
+                  <label htmlFor="business-record">Empresa</label>
+                  <input
+                    type="text"
+                    name="business-record"
+                    id="business-record"
+                    ref={businessRef}
+                  />
+                </div>
+
+                <div className="nombre-wrapper grid-visitantes">
+                  <label htmlFor="area-record">Area visitada</label>
+                  <input
+                    type="text"
+                    name="area-record"
+                    id="area-record"
+                    ref={areaRef}
+                  />
+                </div>
+
+                <div className="cedula-wrapper grid-visitantes">
+                  <label htmlFor="motivo-record">Motivo de la visita</label>
+                  <input
+                    type="text"
+                    name="motivo-record"
+                    id="motivo-record"
+                    ref={motifRef}
+                  />
+                </div>
+
+                <div className="nombre-wrapper grid-visitantes">
+                  <label htmlFor="autorizado-record">Autorizado por</label>
+                  <input
+                    type="text"
+                    name="autorizado-record"
+                    id="autorizado-record"
+                    ref={autorizadoRef}
+                  />
+                </div>
+              </>
+            )}
+
+            <button
+              onClick={(e) => handleUpload(e)}
+              className="registrar-button"
+            >
+              Registrar
+            </button>
+          </form>
+        </div>
+      ) : (
+        <RegisterPrompt detail='redactar'/>
+      )}
+    </>
   );
 };
 
