@@ -3,6 +3,8 @@ import axios from "axios";
 import "./ReportPatana.css";
 import RegisterPrompt from "../RegisterPrompt";
 import { useUser } from "../../contexts/context";
+import Spin from "../spin/Spin";
+
 
 const ReportPatana = () => {
   const token = localStorage.getItem("token");
@@ -70,6 +72,8 @@ const ReportPatana = () => {
   }
 
   useEffect(() => {
+    console.log(userLoading);
+    
 
     if (login && !userLoading) {
       dateRef.current.value = formattedDate;
@@ -115,7 +119,7 @@ const ReportPatana = () => {
 
   return (
     <>
-      {login ? (
+      {userLoading ? < Spin/> : login ? (
         <div className="informe-wrapper">
           <p className="ingreso-title">
             {todayHead} - Informe de Ingreso de patana de provincia en el CO7003

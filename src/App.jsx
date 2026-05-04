@@ -10,7 +10,7 @@ import ingrepat from "./assets/images/menu-details/ingrepat.jpeg";
 import ingrevis from "./assets/images/menu-details/ingrevis.jpeg";
 import reportpat from "./assets/images/menu-details/reportpat.jpeg";
 import reportvis from "./assets/images/menu-details/reportvis.jpeg";
-
+import FilterIngreso from "./components/FilterIngreso/FilterIngreso";  
 import IngresoPatana from "./Pages/IngresoPatana/IngresoPatana";
 import VisitantesCard from "./components/visitantes-card/VisitantesCard";
 import Auth from "./components/auth/AuthComponent";
@@ -45,6 +45,7 @@ function App() {
           <Route path="/redactar/visitantes" element={<Visitantes />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/alez" element={<FilterIngreso />} />
         </Routes>
       </UserProvider>
     </>

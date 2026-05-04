@@ -3,9 +3,10 @@ import "./VisitantesCard.css";
 import axios from "axios";
 import { useUser } from "../../contexts/context";
 import RegisterPrompt from "../RegisterPrompt";
+import Spin from "../spin/Spin";
 
 const VisitantesCard = () => {
-  const { login } = useUser();
+  const { login, loading: userLoading } = useUser();
   const date = new Date();
   const formattedDate = new Intl.DateTimeFormat("en-CA").format(date);
   const todayFormatted = date.toLocaleDateString("en-GB");
@@ -105,7 +106,7 @@ const VisitantesCard = () => {
 
   return (
     <>
-      {login ? (
+      {userLoading ? < Spin/> :login ? (
         <div className="full-vis-container">
           <p className="ingreso-title">
             {todayHead} - Informe de Relacion visitantes en el CO7003
