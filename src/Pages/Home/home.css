@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color: #CBBDA0;
+  --background-color: linear-gradient(135deg, #2b1f11 0%, #161009 100%);
+  --border-color: #F2E9D8;
+  --box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.3);
+  --border-input: 1px solid rgba(255, 255, 255, 0.3);
+  --border-shape: 4px solid #FFFFEA;
+}
+
 body {
   font-family: "Pontano Sans", sans-serif;
   font-size: 18px;
@@ -29,8 +38,8 @@ main {
   width: 95vw;
   max-width: 1500px;
   min-height: 350px;
-  background: var(--glass-color);
-  border: 1px solid var(--border-color);
+  background: var(--background-color);
+  border: var(--border-shape);
   box-shadow: var(--box-shadow);
   border-radius: 8px;
   margin-bottom: 20px;
@@ -51,14 +60,14 @@ main {
 .left-top-home h1 {
   font-size: 4rem;
   font-weight: bolder;
-  color: aliceblue;
+  color: var(--color);
   margin-bottom: 20px;
 }
 
 .left-top-home h3 {
   font-size: 2rem;
   font-weight: bolder;
-  color: aliceblue;
+  color: var(--color);
 }
 
 .right-top-home img {
@@ -121,7 +130,7 @@ main {
 .bottom-home {
   width: 95vw;
   padding: 12px;
-  background: var(--glass-color);
+  background: var(--background-color);
   color: aliceblue;
   border-radius: 12px;
   text-align: center;
@@ -134,8 +143,8 @@ main {
     width: 95vw;
     max-width: 1500px;
     min-height: 350px;
-    background: var(--glass-color);
-    border: 1px solid var(--border-color);
+    background: var(--background-color);
+    border: var(--border-shape);
     box-shadow: var(--box-shadow);
     border-radius: 12px;
     margin-bottom: 10px;
@@ -154,13 +163,13 @@ main {
   .left-top-home h1 {
     font-size: 5rem;
     font-weight: bolder;
-    color: aliceblue;
+    color: var(--color);
   }
 
   .left-top-home h3 {
     font-size: 3rem;
     font-weight: bolder;
-    color: aliceblue;
+    color: var(--color);
   }
 
   .right-top-home img {
@@ -220,8 +229,8 @@ main {
   .bottom-home {
     max-width: 1500px;
     padding: 12px;
-    background: var(--glass-color);
-    color: aliceblue;
+    background: var(--background-color);
+    color: var(--color);
     border-radius: 12px;
     text-align: center;
   }

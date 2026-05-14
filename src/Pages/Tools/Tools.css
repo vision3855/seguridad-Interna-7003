@@ -1,6 +1,6 @@
 .tools-wrapper{
   padding-top: 5px;
-  background: var(--glass-color);
+  background: var(--background-color);
   width: 96vw;
   margin: 0 auto;
   height: calc(100vh - 70px);
@@ -23,7 +23,7 @@
   border: var(--border-color) 3px solid;
   
   box-shadow: var(--box-shadow);
-  color: aliceblue;
+  color: var(--color);
 }
 
 .img-tools-wrapper {
@@ -63,20 +63,21 @@
     0 0 20px #00ffea,
     0 0 30px #00ffea; */
   text-shadow:
-    0 0 5px #4dbcf0,
-    0 0 10px #4dbcf0,
-    0 0 15px #4dbcf0,
-    0 0 20px #4f18a8,
-    0 0 35px #4f18a8,
-    0 0 40px #4f18a8,
-    0 0 50px #4f18a8,
-    0 0 75px #4f18a8;
+    0 0 5px #F2E6D8,
+    0 0 10px #F2E6D8,
+    0 0 15px #F2E6D8,
+    0 0 20px #8C5B3E,
+    0 0 35px #8C5B3E,
+    0 0 40px #8C5B3E,
+    0 0 50px #8C5B3E,
+    0 0 75px #8C5B3E;
   animation: neon-flicker 1.5s infinite alternate;
 }
 
 @media (min-width: 430px) {
   .element-wrapper {
     width: 75vw;
+    color: aliceblue;
   }
   .img-tools-wrapper {
     width: 100%;
@@ -99,6 +100,7 @@
   .element-wrapper {
     max-width: 800px;
     padding: 10px;
+    color: aliceblue;
   }
 
   .txt-tools-wrapper {
@@ -128,14 +130,14 @@
   57%,
   100% {
     text-shadow:
-      0 0 5px #4dbcf0,
-      0 0 10px #4dbcf0,
-      0 0 15px #4dbcf0,
-      0 0 20px #4f18a8,
-      0 0 35px #4f18a8,
-      0 0 40px #4f18a8,
-      0 0 50px #4f18a8,
-      0 0 75px #4f18a8;
+      0 0 5px #F2E6D8,
+      0 0 10px #F2E6D8,
+      0 0 15px #F2E6D8,
+      0 0 20px #8C5B3E,
+      0 0 35px #8C5B3E,
+      0 0 40px #8C5B3E,
+      0 0 50px #8C5B3E,
+      0 0 75px #8C5B3E;
   }
   20%,
   24%,

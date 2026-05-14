@@ -492,9 +492,8 @@ const CSS = `
 
 /* ─── Helpers ────────────────────────────────────────────────────────────── */
 const TYPE_BADGE = {
-  TERCERO: "fi-badge-green",
-  PROPIO:  "fi-badge-blue",
-  EXTERNO: "fi-badge-amber",
+  TERCERO: "fi-badge-amber",
+  ISM: "fi-badge-green"
 };
 
 function Badge({ value }) {

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--glass-color);
+  background: var(--background-color);
   height: calc(100vh - 70px);
   min-height: 700px;
   width: 96vw;
@@ -44,12 +44,18 @@
   width: 170px;
   padding: 6px;
   margin: 18px 0;
-  background-color: rgb(4, 126, 34);
+  background: var(--background-color);
   color: aliceblue;
   font-size: 1.2rem;
   border: none;
   border-radius: 2px;
   font-weight: bold;
+  cursor: pointer;
+}
+
+#calcular:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
 }
 
 .calculation-result {
