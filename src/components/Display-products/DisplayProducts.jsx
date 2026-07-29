@@ -8,38 +8,24 @@ import {
   energizante360,
   aguaCoolHeaven,
 } from "../../productData";
+import { useUser } from "../../contexts/context";
 
-const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
+const DisplayProducts = ({ Products, setProducts }) => {
+  const { showAlert } = useUser();
   function addSingleProduct(e) {
-    const isExisted = Products.find(
+    const productFound = Products.find(
       (item) => item == e.target.dataset.systemName,
     );
-    if (isExisted) {
-      const result = Products.filter((item) => item != isExisted);
+    if (productFound) {
+      const result = Products.filter((item) => item != productFound);
       setProducts(result);
-      setAlertMessage((prev) => ({
-        ...prev,
-        type: "red",
-        message: "products removed successfully",
-      }));
+      showAlert("red", "products removed successfully", 2000);
       e.target.classList.remove("glow");
     } else {
       setProducts((prev) => [...prev, e.target.dataset.systemName]);
-      setAlertMessage((prev) => ({
-        ...prev,
-        type: "green",
-        message: "products added successfully",
-      }));
+      showAlert("green", "products added successfully", 2000);
       e.target.classList.add("glow");
     }
-
-    setTimeout(() => {
-      setAlertMessage((prev) => ({
-        ...prev,
-        type: "inActive",
-        message: "Nothing to show right now",
-      }));
-    }, 2000);
   }
 
   return (

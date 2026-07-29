@@ -2,8 +2,10 @@ import "./TextReport.css";
 import { copyText } from "../../utils/util";
 import copyImg from "../../assets/images/copy.png";
 import { useRef } from "react";
+import { useUser } from "../../contexts/context";
 
-const TextReport = ({ textToShow, setAlertMessage }) => {
+const TextReport = ({ textToShow }) => {
+  const { showAlert } = useUser();
   const container = useRef(null);
 
   return (
@@ -14,18 +16,7 @@ const TextReport = ({ textToShow, setAlertMessage }) => {
           alt="copy button logo"
           onClick={() => {
             copyText(container.current.textContent);
-            setAlertMessage((prev) => ({
-              ...prev,
-              type: "green",
-              message: "Text copied",
-            }));
-            setTimeout(() => {
-              setAlertMessage((prev) => ({
-                ...prev,
-                type: "inActive",
-                message: "Nothing to show right now",
-              }));
-            }, 2000);
+            showAlert("green", "Text copied", 2000);
           }}
         />
       </div>

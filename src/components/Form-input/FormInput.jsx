@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./FormInput.css";
+import { useUser } from "../../contexts/context";
 
 const FormInput = ({
   setTextToShow,
   Products,
   setProducts,
-  setAlertMessage,
 }) => {
+  const { showAlert } = useUser();
   const token = localStorage.getItem("token");
   const [displayDriverArray, setDisplayDriverArray] = useState([]);
   const ISMRef = useRef(null);
@@ -92,18 +93,7 @@ const FormInput = ({
 
   async function saveNewDriver() {
     if (!driverRef.current.value || !placaRef.current.value) {
-      setAlertMessage((prev) => ({
-        ...prev,
-        type: "red",
-        message: "Please provide driver and placa",
-      }));
-      setTimeout(() => {
-        setAlertMessage((prev) => ({
-          ...prev,
-          type: "inActive",
-          message: "Nothing to show right now",
-        }));
-      }, 3000);
+      showAlert("red", "Please provide driver and placa");
       return;
     }
     const data = terceroRef.current.checked
@@ -147,18 +137,7 @@ const FormInput = ({
     if (dataFetched.length < 1) {
       try {
         const res = await postData(data, "patana");
-        setAlertMessage((prev) => ({
-          ...prev,
-          type: "green",
-          message: `chofer ${res.data.patana.driver} Created succesfully`,
-        }));
-        setTimeout(() => {
-          setAlertMessage((prev) => ({
-            ...prev,
-            type: "inActive",
-            message: "Nothing to show right now",
-          }));
-        }, 3000);
+        showAlert("green", `chofer ${res.data.patana.driver} Created succesfully`);
       } catch (error) {
         console.log(error);
       }
@@ -280,18 +259,7 @@ Paletas : 21 unidades`);
   function getOut() {
     
     if (!driverRef.current.value || !placaRef.current.value) {
-      setAlertMessage((prev) => ({
-        ...prev,
-        type: "red",
-        message: `Please provide chofer and placa`,
-      }));
-      setTimeout(() => {
-        setAlertMessage((prev) => ({
-          ...prev,
-          type: "inActive",
-          message: "Nothing to show right now",
-        }));
-      }, 3000);
+      showAlert("red", "Please provide chofer and placa");
       return;
     }
   

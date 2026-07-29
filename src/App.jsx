@@ -14,9 +14,15 @@ import FilterIngreso from "./components/FilterIngreso/FilterIngreso";
 import IngresoPatana from "./Pages/IngresoPatana/IngresoPatana";
 import VisitantesCard from "./components/visitantes-card/VisitantesCard";
 import Auth from "./components/auth/AuthComponent";
-import { UserProvider } from "./contexts/context";
+import { UserProvider, useUser } from "./contexts/context";
 import UserProfile from "./components/user/UserProfile";
 import TemplateIngreso from "./components/template/ingreso/TemplateIngreso";
+import Alert from "./components/Alert-message/Alert";
+
+function GlobalAlert() {
+  const { alertMessage } = useUser();
+  return <Alert alertMessage={alertMessage} />;
+}
 
 function App() {
   const driverTemplateData = [
@@ -66,6 +72,7 @@ function App() {
   return (
     <>
       <UserProvider>
+        <GlobalAlert />
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

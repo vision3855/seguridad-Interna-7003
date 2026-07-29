@@ -20,19 +20,65 @@ const CalculatorAlmacen = () => {
         paletasUnidades = separadorUnidades * height;
 
         if (value > paletasUnidades) {
-          paletas = Math.trunc(value / paletasUnidades); 
-          const unityAfterPaletas = value - paletas * paletasUnidades; 
-          separador = Math.trunc(unityAfterPaletas / separadorUnidades); 
+          paletas = Math.trunc(value / paletasUnidades);
+          const unityAfterPaletas = value - paletas * paletasUnidades;
+          separador = Math.trunc(unityAfterPaletas / separadorUnidades);
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
+
         } else if (value > separadorUnidades) {
-          separador = Math.trunc(value / separadorUnidades); 
+          separador = Math.trunc(value / separadorUnidades);
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
+        } else {
+          const unidades = value;
+          seTextResult(`${unidades} paquetes`);
+        }
+        break;
+
+      case "KFR":
+        separadorUnidades = 28;
+        height = 8;
+        paletasUnidades = separadorUnidades * height;
+
+        if (value > paletasUnidades) {
+          paletas = Math.trunc(value / paletasUnidades);
+          const unityAfterPaletas = value - paletas * paletasUnidades;
+          separador = Math.trunc(unityAfterPaletas / separadorUnidades);
+          const unidades = unityAfterPaletas - separador * separadorUnidades;
+
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
+        } else if (value > separadorUnidades) {
+          separador = Math.trunc(value / separadorUnidades);
+          const unidades = value - separador * separadorUnidades;
+
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -50,14 +96,25 @@ const CalculatorAlmacen = () => {
           separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
+
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -70,19 +127,29 @@ const CalculatorAlmacen = () => {
         paletasUnidades = separadorUnidades * height;
 
         if (value > paletasUnidades) {
-          paletas = Math.trunc(value / paletasUnidades); 
-          const unityAfterPaletas = value - paletas * paletasUnidades; 
-          separador = Math.trunc(unityAfterPaletas / separadorUnidades); 
+          paletas = Math.trunc(value / paletasUnidades);
+          const unityAfterPaletas = value - paletas * paletasUnidades;
+          separador = Math.trunc(unityAfterPaletas / separadorUnidades);
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -100,14 +167,24 @@ const CalculatorAlmacen = () => {
           separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -125,14 +202,24 @@ const CalculatorAlmacen = () => {
           separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -150,14 +237,24 @@ const CalculatorAlmacen = () => {
           separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -175,14 +272,24 @@ const CalculatorAlmacen = () => {
           separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -200,14 +307,24 @@ const CalculatorAlmacen = () => {
           separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
-          seTextResult(
-            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
-          );
+          if (separador === 0 && unidades === 0) {
+            seTextResult(
+              `${paletas} paletas`,
+            );
+          } else {
+            seTextResult(`${paletas} paletas, ${separador} separadores y ${unidades} paquetes`);
+          }
         } else if (value > separadorUnidades) {
           separador = Math.trunc(value / separadorUnidades); //3
           const unidades = value - separador * separadorUnidades;
 
-          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          if (separador*separadorUnidades === paletasUnidades && unidades === 0) {
+            seTextResult(
+              "1 paleta",
+            );
+          } else {
+            seTextResult(`${separador} separadores y ${unidades} paquetes`);
+          }
         } else {
           const unidades = value;
           seTextResult(`${unidades} paquetes`);
@@ -246,6 +363,7 @@ const CalculatorAlmacen = () => {
             <option value="">seleccionar un producto</option>
             <option value="KR">Kola Real 400 ml</option>
             <option value="KR2">Kola Real 20 OZ</option>
+            <option value="KFR">Kola Real - Frutos Tropicales 350 ml</option>
             <option value="FR3">Frutop 300 ml</option>
             <option value="FR45">Frutop 450 ml</option>
             <option value="ER">360 20 Oz</option>
@@ -253,12 +371,10 @@ const CalculatorAlmacen = () => {
             <option value="AG">Agua 500 ml</option>
             <option value="AG6">Agua 625 ml</option>
           </select>
-          
-          
         </div>
         <button id="calcular" onClick={calculation}>
-            Calcular
-          </button>
+          Calcular
+        </button>
         <p className="calculation-result">{textResult}</p>
       </div>
     </div>

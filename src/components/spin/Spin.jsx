@@ -32,6 +32,7 @@ const styles = `
   /* ── Demo page ── */
   .demo-page {
     min-height: 100vh;
+    width: 1500px;
     background: #09090b;
     color: #fafafa;
     font-family: 'DM Mono', monospace;

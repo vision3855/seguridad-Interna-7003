@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect, useRef, useCallback } from "react";
 
 // 1. Capitalized for component-style usage
 const UserContext = createContext();
@@ -33,6 +33,24 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Added loading state
   const [login, setLogin] = useState(false);
+  const [alertMessage, setAlertMessage] = useState({
+    type: "inActive",
+    message: "",
+  });
+  const alertTimerRef = useRef(null);
+
+  const showAlert = useCallback((type, message, duration = 3000) => {
+    if (alertTimerRef.current) {
+      clearTimeout(alertTimerRef.current);
+    }
+    setAlertMessage({ type, message });
+    if (duration > 0) {
+      alertTimerRef.current = setTimeout(() => {
+        setAlertMessage({ type: "inActive", message: "" });
+        alertTimerRef.current = null;
+      }, duration);
+    }
+  }, []);
 
   const refreshUser = async () => {
 
@@ -53,7 +71,7 @@ export function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, loading, refreshUser, login, setLogin }}
+      value={{ user, setUser, loading, refreshUser, login, setLogin, alertMessage, setAlertMessage, showAlert }}
     >
       {children}
     </UserContext.Provider>

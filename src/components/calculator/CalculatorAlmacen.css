@@ -40,6 +40,11 @@
   text-align: center;
 }
 
+.cantidad-wrapper, .product-wrapper label{
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
 #calcular {
   width: 170px;
   padding: 6px;
