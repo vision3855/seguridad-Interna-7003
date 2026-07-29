@@ -8,6 +8,10 @@ async function fetchUser() {
   try {
     const token = localStorage.getItem("token");
 
+    if (!token) {
+      return null;
+    }
+
     const response = await axios.get(
       "https://segintco7003.onrender.com/api/auth/me",
       {

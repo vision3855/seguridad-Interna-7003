@@ -278,7 +278,6 @@ Paletas : 21 unidades`);
   }
 
   function getOut() {
-    console.log(driverRef.current.value);
     
     if (!driverRef.current.value || !placaRef.current.value) {
       setAlertMessage((prev) => ({
@@ -302,9 +301,10 @@ Paletas : 21 unidades`);
     const todayDate = date.toLocaleDateString("en-GB"); // "25/12/2024"
 
     // 24-hour format
-    const hourNow = date.toLocaleTimeString("en-GB"); // "14:30:45"
-
-    switch (howSale) {
+    const hourNow = date.toLocaleTimeString("en-GB");
+     // "14:30:45"
+    if (terceroRef.current.checked) {
+      switch (howSale) {
       case "Vacio":
         setTextToShow(
           `Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale vacia.
@@ -322,7 +322,7 @@ Fecha: ${todayDate}.`,
 Chofer: ${driverRef.current.value}
 Placa: TM ${placaRef.current.value}
 Paletas: ${paletasRef.current.value} unidades
-Separadores: ${separadorRef.current.value} unidades
+${separadorRef.current.value ? `Separadores: ${separadorRef.current.value} unidades` : ""}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`);
         break;
@@ -338,6 +338,42 @@ Fecha: ${todayDate}.`);
       default:
         setTextToShow("Invalid option selected.");
     }
+    } else {
+
+    switch (howSale) {
+      case "Vacio":
+        setTextToShow(
+          `Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale vacia.
+
+Chofer: ${driverRef.current.value}
+Placa: TM ${placaRef.current.value}
+Hora salida: ${hourNow.slice(0, 5)}
+Fecha: ${todayDate}.`,
+        );
+        break;
+      case "Pal y/o Sep":
+        setTextToShow(`Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con paletas y separadores con destino a la planta de Limonade.
+
+
+Chofer: ${driverRef.current.value}
+Placa: TM ${placaRef.current.value}
+Paletas: ${paletasRef.current.value} unidades
+${separadorRef.current.value ? `Separadores: ${separadorRef.current.value} unidades` : ""}
+Hora salida: ${hourNow.slice(0, 5)}
+Fecha: ${todayDate}.`);
+        break;
+      case "Productos":
+        setTextToShow(`Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con los productos destinados a la planta de Limonade.
+
+Chofer: ${driverRef.current.value}
+Placa: TM ${placaRef.current.value}
+Hora salida: ${hourNow.slice(0, 5)}
+Fecha: ${todayDate}.`);
+        break;
+
+      default:
+        setTextToShow("Invalid option selected.");
+    }}
    
   }
 

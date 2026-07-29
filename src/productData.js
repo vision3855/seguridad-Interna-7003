@@ -10,6 +10,16 @@ export const kolaReal = [
         color: 'rgb(0, 0, 0)'
     },
     {
+        name: 'Negra-20Oz',
+        description: "Kola real 20 Oz - Negra",
+        color: 'rgb(0, 0, 0)'
+    },
+    {
+        name: 'Frutos-Tropicales',
+        description: "Kola real 350 ml - Frutos Tropicales",
+        color: 'rgb(0, 0, 0)'
+    },
+    {
         name: 'Naranja',
         description: "Kola real 400 ml - Naranja",
         color: 'rgb(212, 86, 13)'
@@ -125,5 +135,18 @@ export const energizante360 = [
         name: 'Malta',
         description: "Energizante 360 20 Oz - Malta",
         color: 'rgb(119, 73, 5)'
+    }
+];
+
+export const aguaCoolHeaven = [
+    {
+        name: 'Agua-500',
+        description: "Agua Purificada Cool Heaven 500 ml",
+        color: 'rgb(63, 233, 233)'
+    },
+    {
+        name: 'Agua-625',
+        description: "Agua Purificada Cool Heaven 625 ml",
+        color: 'rgb(113, 230, 191)'
     }
 ];

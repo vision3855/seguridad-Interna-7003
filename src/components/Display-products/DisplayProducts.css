@@ -57,7 +57,8 @@
 #KR,
 #FR,
 #ER,
-#GR {
+#GR,
+#AG {
   position: absolute;
   left: 100px;
   top: -18.5px;
@@ -85,6 +86,10 @@
 
 #GR {
   background-color: #1927a1;
+}
+#AG {
+  background-color: rgb(63, 233, 233);
+  color: #191d1f;
 }
 
 span {
@@ -160,6 +165,22 @@ span {
 #Blueberry {
   background-color: rgb(5, 46, 182);
   color: #ffffff;
+}
+#Agua-500 {
+  background-color: rgb(63, 233, 233);
+  color: #191d1f;
+}
+#Agua-625 {
+  background-color: rgb(63, 233, 233);
+  color: #191d1f;
+}
+#Negra-20Oz {
+  background-color: rgb(0, 0, 0);
+  color: #f7f9fa;
+}
+#Frutos-Tropicales {
+  background-color: rgb(30, 37, 145);
+  color: #ffc5c5;
 }
 
 .all-savour span:hover {

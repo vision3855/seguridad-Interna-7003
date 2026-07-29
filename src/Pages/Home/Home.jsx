@@ -4,7 +4,7 @@ import PatanaFlow from "../../components/PatanaFlow/PatanaFlow";
 import ImageUpload from "../../trials";
 import { Link } from "react-router";
 import imgCO7003 from "../../assets/images/ismco7003.jpg";
-import { menu } from "../../../../data";
+import { menu } from "../../../data";
 
 const menuGood = menu.slice(1);
 

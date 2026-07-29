@@ -1,8 +1,8 @@
 import "./header.css";
-import ismLogo from "../../../../images/logo-ism-media.png";
+import ismLogo from "../../assets/images/logo-ism-media.jpg";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
-import { menu } from "../../../../data";
+import { menu } from "../../../data";
 import userImg from "../../assets/images/user.png";
 import { useUser } from "../../contexts/context";
 
@@ -49,7 +49,7 @@ const Header = () => {
             </li>
           ))}
         </ul>
-        {login ? (
+        {user ? (
           <div className="auth-user-area">
             <Link to={user?.data.name ? "/profile" : "/auth"}>
               <img className="user-area-auth" src={userImg} />

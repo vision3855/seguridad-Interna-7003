@@ -202,8 +202,8 @@ input[type="text"]:focus {
   width: 70px;
 }
 
-.separador {
-  margin-top: 20px;
+.separador, .paletas {
+  margin-top: 10px;
 }
 
 .bottom-button {

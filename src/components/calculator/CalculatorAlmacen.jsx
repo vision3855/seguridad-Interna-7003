@@ -15,21 +15,21 @@ const CalculatorAlmacen = () => {
     let height;
     switch (selectedValue) {
       case "KR":
-        separadorUnidades = 30;
+        separadorUnidades = 28;
         height = 7;
         paletasUnidades = separadorUnidades * height;
 
         if (value > paletasUnidades) {
-          paletas = Math.trunc(value / paletasUnidades); //9
-          const unityAfterPaletas = value - paletas * paletasUnidades; //110
-          separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
+          paletas = Math.trunc(value / paletasUnidades); 
+          const unityAfterPaletas = value - paletas * paletasUnidades; 
+          separador = Math.trunc(unityAfterPaletas / separadorUnidades); 
           const unidades = unityAfterPaletas - separador * separadorUnidades;
 
           seTextResult(
             `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
           );
         } else if (value > separadorUnidades) {
-          separador = Math.trunc(value / separadorUnidades); //3
+          separador = Math.trunc(value / separadorUnidades); 
           const unidades = value - separador * separadorUnidades;
 
           seTextResult(`${separador} separadores y ${unidades} paquetes`);
@@ -40,8 +40,8 @@ const CalculatorAlmacen = () => {
         break;
 
       case "FR3":
-        separadorUnidades = 34;
-        height = 9;
+        separadorUnidades = 32;
+        height = 8;
         paletasUnidades = separadorUnidades * height;
 
         if (value > paletasUnidades) {
@@ -65,8 +65,33 @@ const CalculatorAlmacen = () => {
         break;
 
       case "FR45":
-        separadorUnidades = 29;
+        separadorUnidades = 27;
         height = 7;
+        paletasUnidades = separadorUnidades * height;
+
+        if (value > paletasUnidades) {
+          paletas = Math.trunc(value / paletasUnidades); 
+          const unityAfterPaletas = value - paletas * paletasUnidades; 
+          separador = Math.trunc(unityAfterPaletas / separadorUnidades); 
+          const unidades = unityAfterPaletas - separador * separadorUnidades;
+
+          seTextResult(
+            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
+          );
+        } else if (value > separadorUnidades) {
+          separador = Math.trunc(value / separadorUnidades); //3
+          const unidades = value - separador * separadorUnidades;
+
+          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+        } else {
+          const unidades = value;
+          seTextResult(`${unidades} paquetes`);
+        }
+        break;
+
+      case "ER":
+        separadorUnidades = 22;
+        height = 6;
         paletasUnidades = separadorUnidades * height;
 
         if (value > paletasUnidades) {
@@ -89,7 +114,32 @@ const CalculatorAlmacen = () => {
         }
         break;
 
-      case "ER":
+      case "KR2":
+        separadorUnidades = 22;
+        height = 6;
+        paletasUnidades = separadorUnidades * height;
+
+        if (value > paletasUnidades) {
+          paletas = Math.trunc(value / paletasUnidades); //9
+          const unityAfterPaletas = value - paletas * paletasUnidades; //110
+          separador = Math.trunc(unityAfterPaletas / separadorUnidades); //3
+          const unidades = unityAfterPaletas - separador * separadorUnidades;
+
+          seTextResult(
+            `${paletas} paletas, ${separador} separadores y ${unidades} paquetes`,
+          );
+        } else if (value > separadorUnidades) {
+          separador = Math.trunc(value / separadorUnidades); //3
+          const unidades = value - separador * separadorUnidades;
+
+          seTextResult(`${separador} separadores y ${unidades} paquetes`);
+        } else {
+          const unidades = value;
+          seTextResult(`${unidades} paquetes`);
+        }
+        break;
+
+      case "AG6":
         separadorUnidades = 22;
         height = 6;
         paletasUnidades = separadorUnidades * height;
@@ -195,11 +245,13 @@ const CalculatorAlmacen = () => {
           >
             <option value="">seleccionar un producto</option>
             <option value="KR">Kola Real 400 ml</option>
+            <option value="KR2">Kola Real 20 OZ</option>
             <option value="FR3">Frutop 300 ml</option>
             <option value="FR45">Frutop 450 ml</option>
             <option value="ER">360 20 Oz</option>
             <option value="GR">Generade 500 ml</option>
             <option value="AG">Agua 500 ml</option>
+            <option value="AG6">Agua 625 ml</option>
           </select>
           
           

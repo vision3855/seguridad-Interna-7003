@@ -6,24 +6,23 @@ import {
   frutop450,
   generade,
   energizante360,
+  aguaCoolHeaven,
 } from "../../productData";
 
 const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
-
-
   function addSingleProduct(e) {
     const isExisted = Products.find(
       (item) => item == e.target.dataset.systemName,
     );
     if (isExisted) {
-      const result = Products.filter((item) => item != isExisted);                            
+      const result = Products.filter((item) => item != isExisted);
       setProducts(result);
       setAlertMessage((prev) => ({
         ...prev,
         type: "red",
         message: "products removed successfully",
       }));
-      e.target.classList.remove('glow')
+      e.target.classList.remove("glow");
     } else {
       setProducts((prev) => [...prev, e.target.dataset.systemName]);
       setAlertMessage((prev) => ({
@@ -31,7 +30,7 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
         type: "green",
         message: "products added successfully",
       }));
-      e.target.classList.add('glow')
+      e.target.classList.add("glow");
     }
 
     setTimeout(() => {
@@ -49,9 +48,10 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
         <div className="bar"></div>
         <span>PRODUCTOS</span>
       </div>
+
       <div className="savour-wrapper">
         <p id="KR">Kola Real</p>
-        <div className="all-savour">
+        <div className="all-savour frutop">
           {kolaReal.map((item) => {
             return (
               <span
@@ -129,6 +129,25 @@ const DisplayProducts = ({ Products, setProducts, setAlertMessage }) => {
         <p id="GR">Generade</p>
         <div className="all-savour">
           {generade.map((item) => {
+            return (
+              <span
+                key={item.description}
+                id={item.name}
+                onClick={(e) => addSingleProduct(e)}
+                data-system-name={item.description}
+                className=""
+              >
+                {item.name}
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="savour-wrapper">
+        <p id="AG">Agua Cool Heaven</p>
+        <div className="all-savour">
+          {aguaCoolHeaven.map((item) => {
             return (
               <span
                 key={item.description}
