@@ -132,8 +132,8 @@ export const energizante360 = [
         color: 'rgb(165, 165, 164)'
     },
     {
-        name: 'Malta',
-        description: "Energizante 360 20 Oz - Malta",
+        name: 'Cherry',
+        description: "Energizante 360 20 Oz - Cherry",
         color: 'rgb(119, 73, 5)'
     }
 ];

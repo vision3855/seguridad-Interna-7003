@@ -32,11 +32,6 @@ function App() {
       to: "/modelo/ingreso",
       path: "/modelo",
     },
-    {
-      name: "modelo para salida de choferes",
-      image: imgAlm,
-      to: "/modelo/salida",
-      path: "/modelo",    },
   ];
 
   const toolsData = [
@@ -89,7 +84,6 @@ function App() {
           <Route path="/tools/calculator" element={<CalculatorAlmacen />} />
           <Route path="/redactar/visitantes" element={<Visitantes />} />
           <Route path="/modelo/ingreso" element={<TemplateIngreso />} />
-          <Route path="/modelo/salida" element={<Visitantes />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/alez" element={<FilterIngreso />} />

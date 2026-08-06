@@ -21,6 +21,7 @@ const PatanaFlow = () => {
             setTextToShow={setTextToShow}
             Products={Products}
             setProducts={setProducts}
+            textToShow={textToShow}
           />
           <DisplayProducts
             Products={Products}

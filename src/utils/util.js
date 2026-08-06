@@ -1,3 +1,4 @@
+
 export function copyText(container) {
   // Copy to clipboard
   navigator.clipboard
@@ -8,5 +9,4 @@ export function copyText(container) {
     .catch((err) => {
       console.error("Failed to copy: ", err);
     });
-
 }

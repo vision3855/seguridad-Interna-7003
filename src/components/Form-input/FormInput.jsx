@@ -2,12 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import "./FormInput.css";
 import { useUser } from "../../contexts/context";
+import { copyText } from "../../utils/util";
 
-const FormInput = ({
-  setTextToShow,
-  Products,
-  setProducts,
-}) => {
+const FormInput = ({ textToShow, setTextToShow, Products, setProducts }) => {
   const { showAlert } = useUser();
   const token = localStorage.getItem("token");
   const [displayDriverArray, setDisplayDriverArray] = useState([]);
@@ -31,6 +28,47 @@ const FormInput = ({
   const [howSale, setHowSale] = useState("Vacio");
   const [recogervacio, setRecogervacio] = useState("Productos");
   const [howIngreso, setHowIngreso] = useState("Productos");
+
+  useEffect(() => {
+    textToShow !== "" && copyText(textToShow);
+  }, [textToShow]);
+
+  async function isAlreadyRegistered(placa) {
+    let isExisting = false;
+    const date = new Date();
+    const todayFormatted = date.toLocaleDateString("en-GB");
+    try {
+      const response = await axios.post(
+        `https://segintco7003.onrender.com/ingreso/date`,
+        {
+          dia: todayFormatted,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.data.result.length > 0) {
+
+        response.data.result.find((ingreso) => {
+          if (parseInt(ingreso.placa) === parseInt(placa)) {
+            isExisting = true;
+          }
+        });
+      }
+    } catch (error) {
+      showAlert("red", "Error al verificar el registro de la patana.", 5);
+      console.error("Error al verificar el registro de la patana:", error);
+    }
+    if (isExisting) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   async function driverSearch(event) {
     const value = event.target.value;
@@ -81,12 +119,14 @@ const FormInput = ({
     if (item.patanaType === "TERCERO") {
       driverRef.current.value = item.driver;
       placaRef.current.value = item.placa;
+      terceroRef.current.checked = true;
     }
     if (item.patanaType === "ISM") {
       driverRef.current.value = item.driver;
       placaRef.current.value = item.placa;
       fichaRef.current.value = item.ficha;
       placaUnidadRef.current.value = item.placaUnidad;
+      ISMRef.current.checked = true;
     }
     displayDriver.current.classList.remove("show");
   }
@@ -96,6 +136,12 @@ const FormInput = ({
       showAlert("red", "Please provide driver and placa");
       return;
     }
+
+    if (!Products.length) {
+      showAlert("red", "Elige al menos un producto para registrar la patana");
+      return;
+    }
+
     const data = terceroRef.current.checked
       ? {
           patanaType: "TERCERO",
@@ -109,6 +155,13 @@ const FormInput = ({
           ficha: fichaRef.current.value,
           placaUnidad: placaUnidadRef.current.value,
         };
+
+    const checkResponse = await isAlreadyRegistered(data.placa);
+
+    if (checkResponse) {
+      showAlert("red", "Esta patana ya ha sido registrada para hoy.");
+      return;
+    }
 
     const url = `https://segintco7003.onrender.com/patana/?driver=${driverRef.current.value}`;
     const response = await axios.get(url, {
@@ -137,16 +190,36 @@ const FormInput = ({
     if (dataFetched.length < 1) {
       try {
         const res = await postData(data, "patana");
-        showAlert("green", `chofer ${res.data.patana.driver} Created succesfully`);
+        showAlert(
+          "green",
+          `chofer ${res.data.patana.driver} Created succesfully`,
+        );
       } catch (error) {
         console.log(error);
       }
     }
 
-    const dataInforme = {
-      ...data,
-      productos: Products.join(", "),
-    };
+    let dataInforme;
+    let productsString = "";
+
+    if (Products.length > 1) {
+      for (let i = 0; i < Products.length; i++) {
+        if (i == Products.length - 1) {
+          productsString += `y ${Products[i]}`;
+        } else {
+          productsString += `${Products[i]}, `;
+        }
+      }
+      dataInforme = {
+        ...data,
+        productos: productsString,
+      };
+    } else {
+      dataInforme = {
+        ...data,
+        productos: Products[0],
+      };
+    }
 
     try {
       await postData(dataInforme, "ingreso");
@@ -165,10 +238,23 @@ const FormInput = ({
     const hourNow = date.toLocaleTimeString("en-GB"); // "14:30:45"
 
     let productString = "";
+
     if (!Products.length) {
       productString = "*****No hay producto*****";
     } else {
-      productString = Products.join(", ");
+      if (Products.length > 1) {
+        for (let i = 0; i < Products.length; i++) {
+          if (i == Products.length - 1) {
+            productString += `y ${Products[i]}`;
+          } else if (i == Products.length - 2) {
+            productString += `${Products[i]} `;
+          } else {
+            productString += `${Products[i]}, `;
+          }
+        }
+      } else {
+        productString = Products[0];
+      }
     }
 
     if (isIngreso) {
@@ -254,15 +340,15 @@ Paletas : 21 unidades`);
       }
     }
     setProducts([]);
+    
   }
 
   function getOut() {
-    
     if (!driverRef.current.value || !placaRef.current.value) {
       showAlert("red", "Please provide chofer and placa");
       return;
     }
-  
+
     const date = new Date();
 
     // European format (DD/MM/YYYY)
@@ -270,21 +356,21 @@ Paletas : 21 unidades`);
 
     // 24-hour format
     const hourNow = date.toLocaleTimeString("en-GB");
-     // "14:30:45"
+    // "14:30:45"
     if (terceroRef.current.checked) {
       switch (howSale) {
-      case "Vacio":
-        setTextToShow(
-          `Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale vacia.
+        case "Vacio":
+          setTextToShow(
+            `Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale vacia.
 
 Chofer: ${driverRef.current.value}
 Placa: TM ${placaRef.current.value}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`,
-        );
-        break;
-      case "Pal y/o Sep":
-        setTextToShow(`Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con paletas y separadores con destino a la planta de Limonade.
+          );
+          break;
+        case "Pal y/o Sep":
+          setTextToShow(`Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con paletas y separadores con destino a la planta de Limonade.
 
 
 Chofer: ${driverRef.current.value}
@@ -293,34 +379,33 @@ Paletas: ${paletasRef.current.value} unidades
 ${separadorRef.current.value ? `Separadores: ${separadorRef.current.value} unidades` : ""}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`);
-        break;
-      case "Productos":
-        setTextToShow(`Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con los productos destinados a la planta de Limonade.
+          break;
+        case "Productos":
+          setTextToShow(`Sale del centro de Gonaïves una patana que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con los productos destinados a la planta de Limonade.
 
 Chofer: ${driverRef.current.value}
 Placa: TM ${placaRef.current.value}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`);
-        break;
+          break;
 
-      default:
-        setTextToShow("Invalid option selected.");
-    }
+        default:
+          setTextToShow("Invalid option selected.");
+      }
     } else {
-
-    switch (howSale) {
-      case "Vacio":
-        setTextToShow(
-          `Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale vacia.
+      switch (howSale) {
+        case "Vacio":
+          setTextToShow(
+            `Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale vacia.
 
 Chofer: ${driverRef.current.value}
 Placa: TM ${placaRef.current.value}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`,
-        );
-        break;
-      case "Pal y/o Sep":
-        setTextToShow(`Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con paletas y separadores con destino a la planta de Limonade.
+          );
+          break;
+        case "Pal y/o Sep":
+          setTextToShow(`Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con paletas y separadores con destino a la planta de Limonade.
 
 
 Chofer: ${driverRef.current.value}
@@ -329,20 +414,21 @@ Paletas: ${paletasRef.current.value} unidades
 ${separadorRef.current.value ? `Separadores: ${separadorRef.current.value} unidades` : ""}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`);
-        break;
-      case "Productos":
-        setTextToShow(`Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con los productos destinados a la planta de Limonade.
+          break;
+        case "Productos":
+          setTextToShow(`Sale del centro de Gonaïves la patana ISM ${placaUnidadRef.current.value} que había ingresado previamente ${howIngreso === "Productos" ? "con productos" : "vacio"} y que ahora sale con los productos destinados a la planta de Limonade.
 
 Chofer: ${driverRef.current.value}
 Placa: TM ${placaRef.current.value}
 Hora salida: ${hourNow.slice(0, 5)}
 Fecha: ${todayDate}.`);
-        break;
+          break;
 
-      default:
-        setTextToShow("Invalid option selected.");
-    }}
-   
+        default:
+          setTextToShow("Invalid option selected.");
+      }
+    }
+    
   }
 
   return (
@@ -429,7 +515,7 @@ Fecha: ${todayDate}.`);
             </div>
           </div>
         )}
-        ;
+        
         {!isIngreso && (
           <>
             <div className="isIngreso-vacio-title">Como ingreso?</div>
@@ -604,7 +690,7 @@ Fecha: ${todayDate}.`);
             ref={entradaRef}
             onClick={() => {
               saveNewDriver();
-              populateText();
+              Products.length > 0 && populateText();
             }}
           >
             Entrada
